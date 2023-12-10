@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Bi-Balance</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="chat">Chat</string>
+    <string name="control_panel">Control Panel</string>
+    <string name="navigation_icon">Navigation icon</string>
+    <string name="screen_label">screen.label</string>
 </resources>

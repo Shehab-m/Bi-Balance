@@ -1,4 +1,4 @@
-package com.biBalance.myapplication
+package com.biBalance.myapplication.presentation.app
 
 import android.app.Application
 

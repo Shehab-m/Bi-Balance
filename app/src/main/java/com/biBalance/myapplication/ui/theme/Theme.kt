@@ -13,10 +13,12 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = BlueBlack,
     secondary = PurpleGrey40,
     tertiary = Pink40,
-    background = White
+    background = White100,
+    outline = Grey
+//    onBackground = BlueBlack,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
