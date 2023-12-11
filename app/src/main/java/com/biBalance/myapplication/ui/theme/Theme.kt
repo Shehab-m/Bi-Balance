@@ -6,18 +6,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorScheme = lightColorScheme(
-    primary = BlueBlack,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
+    primary = BlueBlack100,
+    secondary = BlueBlack100,
+    tertiary = BlueBlack100,
     background = White100,
-    outline = Grey
+    outline = Grey100
 //    onBackground = BlueBlack,
 
     /* Other default colors to override
@@ -30,6 +32,12 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     */
 )
+
+private val localDimens = compositionLocalOf { Dimens() }
+val MaterialTheme.dimens: Dimens
+    @Composable
+    @ReadOnlyComposable
+    get() = localDimens.current
 
 @Composable
 fun BiBalanceTheme(

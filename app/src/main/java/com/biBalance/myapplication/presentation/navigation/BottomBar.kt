@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.composables
+package com.biBalance.myapplication.presentation.navigation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
@@ -31,11 +31,10 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.biBalance.myapplication.presentation.composables.BiNavigationBar
+import com.biBalance.myapplication.presentation.composables.BiNavigationBarItem
 import com.biBalance.myapplication.presentation.composables.exitinstion.drawTopIndicator
 import com.biBalance.myapplication.presentation.composables.exitinstion.toPx
-import com.biBalance.myapplication.presentation.navigation.BottomBarItems
-import com.biBalance.myapplication.presentation.navigation.LocalNavigationProvider
-import com.biBalance.myapplication.presentation.navigation.Screens
 
 @Composable
 fun BottomBar() {
@@ -67,11 +66,11 @@ fun BottomBar() {
                 screens.forEach { screen ->
                     val selected =
                         currentDestination?.hierarchy?.any { it.route == screen.route } == true
-                    val drawable = if (selected) screen.selectedIcon else screen.unSelectedIcon
+                    val icon = if (selected) screen.selectedIcon else screen.unSelectedIcon
                     BiNavigationBarItem(
                         icon = { color ->
                             Icon(
-                                painter = painterResource(screen.selectedIcon),
+                                painter = painterResource(icon),
                                 contentDescription = null,
                                 tint = color,
                                 modifier = Modifier

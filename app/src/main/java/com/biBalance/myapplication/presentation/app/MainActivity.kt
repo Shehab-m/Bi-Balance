@@ -14,8 +14,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.biBalance.myapplication.presentation.composables.BottomBar
 import com.biBalance.myapplication.presentation.navigation.AppNavGraph
+import com.biBalance.myapplication.presentation.navigation.BottomBar
 import com.biBalance.myapplication.presentation.navigation.LocalNavigationProvider
 import com.biBalance.myapplication.ui.theme.BiBalanceTheme
 

@@ -9,9 +9,9 @@ import androidx.compose.ui.unit.sp
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = dinNextArabic,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
+        fontWeight = FontWeight.W700,
+        fontSize = 17.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     ),
     bodyMedium = TextStyle(
@@ -23,9 +23,9 @@ val Typography = Typography(
     ),
     bodySmall = TextStyle(
         fontFamily = dinNextArabic,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.W600,
         fontSize = 12.sp,
-        lineHeight = 22.5.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     ),
     /* Other default text styles to override
