@@ -1,4 +1,5 @@
 package com.biBalance.myapplication.presentation.profile
 
-sealed class ProfileUIEffect {
-}
+import com.biBalance.myapplication.presentation.base.BaseUiEffect
+
+sealed class ProfileUIEffect: BaseUiEffect
