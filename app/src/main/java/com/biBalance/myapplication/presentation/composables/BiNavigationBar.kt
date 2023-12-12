@@ -27,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
@@ -47,30 +46,32 @@ fun BiNavigationBar(
     horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceBetween,
     content: @Composable RowScope.() -> Unit
 ) {
-    Surface(
-        color = backgroundColor,
-        contentColor = contentColor,
-        shadowElevation = 0.dp,
-        modifier = modifier
-    ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .height(navigationBarHeight)
-                .selectableGroup()
-                .drawBehind {
-                    drawRect(
-                        color = borderColor,
-                        topLeft = Offset(0f, 0f),
-                        size = size.copy(height = topBorder.toPx()),
-                    )
-                }
-                .shadow(1.dp),
-
-            horizontalArrangement = horizontalArrangement,
-            content = content
-        )
+    Column(modifier = modifier) {
+        TopShadow()
+        Surface(
+            color = backgroundColor,
+            contentColor = contentColor,
+            modifier = Modifier
+        ) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .background(Color.Transparent)
+                    .height(navigationBarHeight)
+                    .selectableGroup()
+                    .drawBehind {
+                        drawRect(
+                            color = borderColor,
+                            topLeft = Offset(0f, 0f),
+                            size = size.copy(height = topBorder.toPx())
+                        )
+                    },
+                horizontalArrangement = horizontalArrangement,
+                content = content
+            )
+        }
     }
+
 }
 
 @Composable

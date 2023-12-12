@@ -1,7 +1,11 @@
 plugins {
     id("com.android.application")
+    id("kotlin-kapt")
     kotlin("android")
     kotlin("kapt")
+    id("com.google.dagger.hilt.android")
+//    id("androidx.navigation.safeargs.kotlin")
+//    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -75,12 +79,17 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     // Hilt
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
     implementation("com.google.dagger:hilt-android:2.48")
-//    implementation("com.google.dagger:hilt-android-compiler:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("androidx.hilt:hilt-work:1.1.0")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation ("androidx.navigation:navigation-compose:2.7.5")
+    implementation ("androidx.navigation:navigation-common-ktx:2.7.5")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     //Permission
     implementation("com.google.accompanist:accompanist-permissions:0.28.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+
 }

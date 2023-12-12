@@ -4,14 +4,12 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -37,7 +35,7 @@ import com.biBalance.myapplication.presentation.composables.exitinstion.drawTopI
 import com.biBalance.myapplication.presentation.composables.exitinstion.toPx
 
 @Composable
-fun BottomBar() {
+fun BottomBar(modifier: Modifier = Modifier) {
     val navController = LocalNavigationProvider.current
     val screens = listOf(
         BottomBarItems.Home,
@@ -58,14 +56,11 @@ fun BottomBar() {
         exit = slideOutVertically(targetOffsetY = { it }),
         content = {
             BiNavigationBar(
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
-                    .drawTopIndicator(xOffsetAnimated)
+                modifier = modifier.drawTopIndicator(xOffsetAnimated)
                     .padding(WindowInsets.navigationBars.asPaddingValues())
             ) {
                 screens.forEach { screen ->
-                    val selected =
-                        currentDestination?.hierarchy?.any { it.route == screen.route } == true
+                    val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
                     val icon = if (selected) screen.selectedIcon else screen.unSelectedIcon
                     BiNavigationBarItem(
                         icon = { color ->
@@ -85,9 +80,7 @@ fun BottomBar() {
                         },
                         label = { Text(text = stringResource(screen.label), style = it) },
                         selected = selected,
-                        onClick = {
-                            onClickBottomNavItem(navController,screen)
-                        },
+                        onClick = { onClickBottomNavItem(navController, screen) },
                     )
                 }
             }
@@ -117,7 +110,7 @@ private fun checkBottomBarState(navBackStackEntry: NavBackStackEntry): MutableSt
 }
 
 
-fun onClickBottomNavItem(navController: NavHostController,screen: BottomBarItems) {
+fun onClickBottomNavItem(navController: NavHostController, screen: BottomBarItems) {
     navController.navigate(screen.route) {
         popUpTo(navController.graph.findStartDestination().id) {
             saveState = true

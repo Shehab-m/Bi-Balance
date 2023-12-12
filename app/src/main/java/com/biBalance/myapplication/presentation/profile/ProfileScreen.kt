@@ -1,24 +1,46 @@
 package com.biBalance.myapplication.presentation.profile
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import com.biBalance.myapplication.presentation.base.BaseScreen
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
 
-class ProfileScreen :
-    BaseScreen<ProfileViewModel, ProfileUIState, ProfileUIEffect, ProfileInteractionListener>() {
-
-    @Composable
-    override fun ScreenContent(state: ProfileUIState, listener: ProfileInteractionListener) {
-
+@Composable
+fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
+    val state by viewModel.state.collectAsState()
+    EventHandler(viewModel.effect) { effect, navController ->
+        when (effect) {
+            is ProfileUIEffect -> {}
+        }
     }
+    ProfileScreenContent(state, viewModel)
+}
 
-    @Composable
-    override fun Screen() {
-        TODO("Not yet implemented")
+
+@Composable
+fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionListener) {
+    Box(Modifier.fillMaxSize().background(Color.Black)) {
+        LazyColumn {
+            items(100) {
+                Text(text = "ejnenfinefnei", modifier = Modifier.fillMaxSize(),
+                )
+
+            }
+        }
     }
+}
 
-    override fun onEffect(effect: ProfileUIEffect, navController: NavHostController) {
-        TODO("Not yet implemented")
-    }
-
+@Preview
+@Composable
+fun ProfileScreenPreview() {
+    ProfileScreen()
 }
