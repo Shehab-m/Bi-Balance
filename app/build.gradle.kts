@@ -91,5 +91,8 @@ dependencies {
     //Permission
     implementation("com.google.accompanist:accompanist-permissions:0.28.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
-
+    // LottiAnimation
+    implementation("com.airbnb.android:lottie-compose:6.0.1")
+    // KotlinX
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 }

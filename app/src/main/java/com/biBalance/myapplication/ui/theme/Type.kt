@@ -16,8 +16,8 @@ val Typography = Typography(
     ),
     bodyMedium = TextStyle(
         fontFamily = dinNextArabic,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontWeight = FontWeight.W700,
+        fontSize = 14.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
@@ -28,6 +28,14 @@ val Typography = Typography(
         lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     ),
+    labelMedium = TextStyle(
+        fontFamily = dinNextArabic,
+        fontWeight = FontWeight.W500,
+        fontSize = 15.sp,
+        lineHeight = 22.sp,
+        letterSpacing = 0.5.sp
+    ),
+
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

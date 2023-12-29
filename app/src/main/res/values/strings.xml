@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">Bi-Balance</string>
+    <string name="app_name" translatable="false">Bi-Balance</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="chat">Chat</string>
     <string name="control_panel">Control Panel</string>
     <string name="navigation_icon">Navigation icon</string>
     <string name="screen_label">screen.label</string>
+    <string name="welcome_text">Hello! let\'s start our adventure together</string>
+    <string name="challenges_text">Choose your challenge, are you ready!</string>
 </resources>

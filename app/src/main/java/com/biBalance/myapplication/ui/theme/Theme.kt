@@ -5,6 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
@@ -50,7 +51,7 @@ fun BiBalanceTheme(
     DisposableEffect(systemUiController, darkIcons) {
         systemUiController.setSystemBarsColor(
             color = Color.Transparent,
-            darkIcons = darkIcons,
+            darkIcons = true,
             isNavigationBarContrastEnforced = false
         )
         onDispose {}
@@ -65,9 +66,11 @@ fun BiBalanceTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(localDimens provides Dimens()) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }

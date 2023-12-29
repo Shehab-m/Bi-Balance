@@ -7,8 +7,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor() : BaseViewModel<HomeUIState, HomeUIEffect>(HomeUIState()),
     HomeInteractionListener {
-    override fun onClickLevel(levelId: String) {
-
+    override fun onClickLevel(levelId: Int) {
+        sendEffect(HomeUIEffect.OnClickLevel(levelId))
     }
 
 }

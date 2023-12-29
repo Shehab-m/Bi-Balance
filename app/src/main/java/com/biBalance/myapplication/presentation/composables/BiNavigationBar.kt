@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.contentColorFor
@@ -29,11 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.biBalance.myapplication.R
 
 @Composable
 fun BiNavigationBar(
@@ -51,13 +54,11 @@ fun BiNavigationBar(
         Surface(
             color = backgroundColor,
             contentColor = contentColor,
-            modifier = Modifier
+            modifier = Modifier.height(navigationBarHeight)
         ) {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .background(Color.Transparent)
-                    .height(navigationBarHeight)
                     .selectableGroup()
                     .drawBehind {
                         drawRect(
@@ -71,7 +72,6 @@ fun BiNavigationBar(
             )
         }
     }
-
 }
 
 @Composable
@@ -132,5 +132,13 @@ fun RowScope.BiNavigationBarItem(
 fun BiNavigationBarPreview() {
     BiNavigationBar(modifier = Modifier
         .background(MaterialTheme.colorScheme.background)
-        .padding(WindowInsets.navigationBars.asPaddingValues())){}
+        .padding(WindowInsets.navigationBars.asPaddingValues())){
+        BiNavigationBarItem(selected = true, onClick = {}, icon = {
+            Icon(
+                painter = painterResource(id = R.drawable.activity_selected),
+                contentDescription = ""
+            )
+        }
+        )
+    }
 }

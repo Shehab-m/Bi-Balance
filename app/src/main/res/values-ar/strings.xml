@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">الرئيسية</string>
+    <string name="profile">حسابي</string>
+    <string name="chat">تحدث الينا</string>
+    <string name="control_panel">لوحة التحكم</string>
+    <string name="navigation_icon">علامة تنقل</string>
+    <string name="screen_label">علامة شاشة</string>
+    <string name="welcome_text">مرحبا بك يا صديقي , هيا بنا لنبدأ رحلتنا معنا</string>
+    <string name="challenges_text">اختر تمرين لتبدأ به , هل انت مستعد؟</string>
+</resources>

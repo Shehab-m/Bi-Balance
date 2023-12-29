@@ -4,12 +4,14 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -56,7 +58,7 @@ fun BottomBar(modifier: Modifier = Modifier) {
         exit = slideOutVertically(targetOffsetY = { it }),
         content = {
             BiNavigationBar(
-                modifier = modifier.drawTopIndicator(xOffsetAnimated)
+                modifier = modifier.drawTopIndicator(xOffsetAnimated).background(MaterialTheme.colorScheme.background)
                     .padding(WindowInsets.navigationBars.asPaddingValues())
             ) {
                 screens.forEach { screen ->
@@ -93,6 +95,7 @@ private fun checkBottomBarState(navBackStackEntry: NavBackStackEntry): MutableSt
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
     val bottomBarScreens = listOf(
         Screens.HomeScreen.route,
+        Screens.ChallengesScreen.route,
         Screens.ProfileScreen.route,
         Screens.ChatScreen.route,
         Screens.ControlPanelScreen.route,

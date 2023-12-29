@@ -14,9 +14,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TopShadow(alpha: Float = 0.07f, height: Dp = 3.dp) {
-    Box(modifier = Modifier
-        .fillMaxWidth().height(height).background(
+fun TopShadow(alpha: Float = 0.15f, height: Dp = 3.dp) {
+    Box(modifier = Modifier.fillMaxWidth().height(height).background(
             brush = Brush.verticalGradient(
                 colors = listOf(
                     Color.Transparent,

@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.home.composable
+package com.biBalance.myapplication.presentation.composables
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -12,29 +12,52 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.biBalance.myapplication.ui.theme.MediumGrey100
+
+@Composable
+fun AnimatedProgressBar(
+    modifier: Modifier = Modifier,
+    maxProgress: Int,
+    currentProgress: Int,
+    progressColor: Color = MaterialTheme.colorScheme.primary,
+    trackColor: Color = MediumGrey100,
+    strokeWidth: Dp = 10.dp,
+    animationDuration: Int = 1000
+) {
+    var animationPlayed by rememberSaveable { mutableStateOf(false) }
+    val animatedProgress by animateFloatAsState(
+        targetValue = if (animationPlayed) ((currentProgress.toFloat() / maxProgress.toFloat())) else 0f,
+        animationSpec = tween(animationDuration, easing = LinearEasing), label = "progress"
+    )
+    LaunchedEffect(true) { animationPlayed = true }
+    BiProgressBar(modifier,animatedProgress, progressColor,trackColor,strokeWidth)
+}
 
 @Composable
 fun BiProgressBar(
-    progress: Float,
     modifier: Modifier = Modifier,
+    progressPercentage: Float,
     progressColor: Color = MaterialTheme.colorScheme.primary,
-    trackColor: Color = MaterialTheme.colorScheme.secondary,
+    trackColor: Color = MediumGrey100,
     strokeWidth: Dp = 10.dp,
-    strokeColor: Color = MaterialTheme.colorScheme.outline
 ) {
     Box(
-        modifier = modifier.height(strokeWidth).drawBehind {
+        modifier = modifier
+            .height(strokeWidth)
+            .drawBehind {
                 drawRoundRect(
                     color = trackColor,
                     cornerRadius = CornerRadius(100f)
@@ -42,34 +65,11 @@ fun BiProgressBar(
                 drawRoundRect(
                     color = progressColor,
                     cornerRadius = CornerRadius(100f),
-                    size = Size(size.width * progress, size.height)
-                )
-                drawRoundRect(
-                    strokeColor,
-                    style = Stroke(width = 1.dp.toPx(), cap = StrokeCap.Round),
-                    cornerRadius = CornerRadius(100f)
+                    size = Size(size.width * progressPercentage, size.height)
                 )
             }
     )
 }
-
-@Composable
-fun AnimatedProgressBar(
-    modifier: Modifier = Modifier,
-    maxProgress: Int = 40,
-    currentProgress: Int = 30,
-) {
-    val animatedProgress by animateFloatAsState(
-        targetValue = currentProgress.toFloat() / maxProgress.toFloat(),
-        animationSpec = tween(1000, easing = LinearEasing)
-    )
-    BiProgressBar(
-        progress = animatedProgress,
-        strokeWidth = 15.dp,
-        modifier = modifier
-    )
-}
-
 
 @Preview(showSystemUi = true, showBackground = true, backgroundColor = 0xFF421069)
 @Composable
@@ -82,7 +82,8 @@ fun PreviewProgress() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            currentProgress = 15
+            currentProgress = 15,
+            maxProgress = 100
         )
     }
 }

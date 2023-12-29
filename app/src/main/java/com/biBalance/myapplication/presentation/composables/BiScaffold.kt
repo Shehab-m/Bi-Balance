@@ -1,6 +1,8 @@
 package com.biBalance.myapplication.presentation.composables
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,9 +18,8 @@ fun BiScaffold(
     modifier: Modifier = Modifier,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
-    content: @Composable () -> Unit,
+    content: @Composable (innerPadding: PaddingValues) -> Unit,
 ) {
-
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
         color = Color.Unspecified,
@@ -28,10 +29,11 @@ fun BiScaffold(
     Scaffold(
         topBar = topBar,
         bottomBar = bottomBar,
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         modifier = modifier
     ) { innerPadding ->
         Box(modifier = Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding())) {
-            content()
+            content(innerPadding)
         }
     }
 }
