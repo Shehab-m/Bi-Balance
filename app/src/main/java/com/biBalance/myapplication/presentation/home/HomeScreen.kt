@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -60,13 +61,13 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     HomeScreenContent(state, viewModel)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
     Scaffold { paddingValues ->
         BiAnimationContent(
-            state = true,
+            contentState = false,
             content = {
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
@@ -76,12 +77,11 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                     item(span = { GridItemSpan(2) }) {
                         Column {
                             Row(
-                                modifier = Modifier.fillMaxWidth()
-                                    .padding(top = 20.dp, bottom = 8.dp),
+                                modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                IconButton(modifier = Modifier.size(24.dp),onClick = { }) {
+                                IconButton(modifier = Modifier.size(24.dp), onClick = { }) {
                                     Icon(
                                         painter = painterResource(id = R.drawable.notification),
                                         contentDescription = "notification",
@@ -91,7 +91,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                 Row {
                                     Text(
                                         text = "Shady Alaa",
-                                        style = MaterialTheme.typography.labelMedium,
+                                        style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier.padding(horizontal = 8.dp)
                                     )
@@ -103,9 +103,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                 }
                             }
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 8.dp, bottom = 8.dp),
+                                modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 8.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 var percentage by rememberSaveable { mutableStateOf(0f) }
@@ -139,9 +137,14 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                 textAlign = TextAlign.End,
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.fillMaxWidth().padding(top = 48.dp)
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 48.dp)
                             )
-                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.End
+                            ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.group_873),
                                     contentDescription = "hi",

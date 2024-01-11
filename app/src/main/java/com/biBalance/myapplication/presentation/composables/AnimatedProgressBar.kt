@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.biBalance.myapplication.ui.theme.MediumGrey100
+import com.biBalance.myapplication.ui.theme.GreyMedium100
 
 @Composable
 fun AnimatedProgressBar(
@@ -33,7 +33,7 @@ fun AnimatedProgressBar(
     maxProgress: Int,
     currentProgress: Int,
     progressColor: Color = MaterialTheme.colorScheme.primary,
-    trackColor: Color = MediumGrey100,
+    trackColor: Color = GreyMedium100,
     strokeWidth: Dp = 10.dp,
     animationDuration: Int = 1000
 ) {
@@ -51,12 +51,11 @@ fun BiProgressBar(
     modifier: Modifier = Modifier,
     progressPercentage: Float,
     progressColor: Color = MaterialTheme.colorScheme.primary,
-    trackColor: Color = MediumGrey100,
+    trackColor: Color = GreyMedium100,
     strokeWidth: Dp = 10.dp,
 ) {
     Box(
-        modifier = modifier
-            .height(strokeWidth)
+        modifier = modifier.height(strokeWidth)
             .drawBehind {
                 drawRoundRect(
                     color = trackColor,

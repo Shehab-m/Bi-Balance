@@ -12,11 +12,13 @@ fun AppNavGraph() {
     ) {
         homeNavGraph()
         profileNavGraph()
+        challengesNavGraph()
     }
 }
 
 object Graph {
     const val HOME = "home_graph"
+    const val CHALLENGES = "challenges_graph"
     const val PROFILE = "profile_graph"
     const val CONTROL_PANEL = "control_panel_graph"
     const val CHAT = "chat_graph"

@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.challenges
+package com.biBalance.myapplication.presentation.challenges.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

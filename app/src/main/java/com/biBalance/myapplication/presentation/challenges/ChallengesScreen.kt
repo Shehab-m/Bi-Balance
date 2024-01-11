@@ -30,6 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
+import com.biBalance.myapplication.presentation.challenge.navigateToChallengeScreen
+import com.biBalance.myapplication.presentation.challenges.composable.BiCardChallenge
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiProgressBar
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
@@ -43,7 +45,9 @@ fun ChallengesScreen(viewModel: ChallengesViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     EventHandler(viewModel.effect) { effect, navController ->
         when (effect) {
-            is ChallengesUIEffect.OnClickChallenge -> {}
+            is ChallengesUIEffect.OnClickChallenge -> {
+                navController.navigateToChallengeScreen()
+            }
         }
     }
     ChallengesScreenContent(state, viewModel)
@@ -55,17 +59,21 @@ fun ChallengesScreen(viewModel: ChallengesViewModel = hiltViewModel()) {
 fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesInteractionListener) {
     Scaffold { paddingValues ->
         BiAnimationContent(
-            state = true,
+            contentState = false,
             content = {
                 LazyVerticalGrid(
-                    modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 20.dp),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     item(span = { GridItemSpan(2) }) {
                         Column {
                             Row(
-                                modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 8.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 20.dp, bottom = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
@@ -79,7 +87,7 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                                 Row {
                                     Text(
                                         text = "Shady Alaa",
-                                        style = MaterialTheme.typography.labelMedium,
+                                        style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier.padding(horizontal = 8.dp)
                                     )
@@ -91,7 +99,9 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                                 }
                             }
                             Row(
-                                modifier = Modifier.fillMaxWidth().padding(top = 8.dp, bottom = 8.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 8.dp, bottom = 8.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
@@ -116,7 +126,9 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                                 textAlign = TextAlign.End,
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.fillMaxWidth().padding(top = 48.dp)
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 48.dp)
                             )
                             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                                 Icon(
@@ -136,7 +148,7 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                             modifier = Modifier.padding(top = 16.dp),
                             title = "Emotional",
                             backgroundColor = selectedColor,
-                            onClick = { listener.onClickLevel(1) },
+                            onClick = { listener.onClickChallenge(1) },
                         )
                     }
                 }

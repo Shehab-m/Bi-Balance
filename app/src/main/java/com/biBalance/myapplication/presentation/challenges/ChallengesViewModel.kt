@@ -7,8 +7,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChallengesViewModel @Inject constructor() : BaseViewModel<ChallengesUIState, ChallengesUIEffect>(ChallengesUIState()),
     ChallengesInteractionListener {
-    override fun onClickLevel(levelId: Int) {
-
+    override fun onClickChallenge(levelId: Int) {
+        sendEffect(ChallengesUIEffect.OnClickChallenge(1))
     }
 
 }

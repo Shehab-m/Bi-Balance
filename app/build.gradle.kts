@@ -95,4 +95,7 @@ dependencies {
     implementation("com.airbnb.android:lottie-compose:6.0.1")
     // KotlinX
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    // Compose
+    implementation ("androidx.compose.foundation:foundation:1.5.4")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 }

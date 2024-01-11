@@ -25,13 +25,13 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.biBalance.myapplication.ui.theme.MediumGrey100
+import com.biBalance.myapplication.ui.theme.GreyMedium100
 
 @Composable
 fun AnimatedProgressBarCircular(
     modifier: Modifier = Modifier,
     progressColor: Color = MaterialTheme.colorScheme.primary,
-    trackColor: Color = MediumGrey100,
+    trackColor: Color = GreyMedium100,
     strokeWidth: Dp = 5.dp,
     radius: Dp = 50.dp,
     maxProgress: Int = 4,

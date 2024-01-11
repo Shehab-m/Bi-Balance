@@ -11,7 +11,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -36,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
-    @SuppressLint("RememberReturnType")
+    @SuppressLint("RememberReturnType", "UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -64,12 +63,10 @@ class MainActivity : ComponentActivity() {
                     }
                     Scaffold(
                         modifier = Modifier.nestedScroll(nestedScrollConnection),
-                    ) { innerPadding ->
+                    ) {
                         Box(
-                            modifier = Modifier
-                                .background(MaterialTheme.colorScheme.background)
-                                .fillMaxSize()
-                                .padding(innerPadding),
+                            modifier = Modifier.background(MaterialTheme.colorScheme.background)
+                                .fillMaxSize(),
                             contentAlignment = Alignment.BottomCenter
                         ) {
                             AppNavGraph()
@@ -80,7 +77,6 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 BottomBar()
                             }
-
                             Log.d("onCreate: ", bottomBarOffsetHeightPx.value.toString())
                         }
                     }

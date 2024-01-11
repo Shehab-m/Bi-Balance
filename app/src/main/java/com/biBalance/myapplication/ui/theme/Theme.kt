@@ -20,8 +20,8 @@ private val LightColorScheme = lightColorScheme(
     secondary = White100,
     tertiary = BlueBlack100,
     background = White100,
-    outline = Grey100
-//    onBackground = BlueBlack,
+    outline = Grey100,
+    onSecondary = White100,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -62,7 +62,6 @@ fun BiBalanceTheme(
         SideEffect {
             val window = (view.context as Activity).window
             WindowCompat.setDecorFitsSystemWindows(window, false)
-
         }
     }
 

@@ -24,10 +24,10 @@ import kotlinx.datetime.Clock
 
 abstract class BaseViewModel<S, E>(initialState: S) : ViewModel(), BaseInteractionListener {
 
-    private val _state = MutableStateFlow(initialState)
+    protected val _state = MutableStateFlow(initialState)
     val state = _state.asStateFlow()
 
-    private val _effect = MutableSharedFlow<E?>()
+    protected val _effect = MutableSharedFlow<E?>()
     val effect = _effect.asSharedFlow().throttleFirst(500).mapNotNull { it }
 
     protected fun <T> tryToExecute(

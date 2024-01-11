@@ -31,9 +31,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
     Box(Modifier.fillMaxSize().background(Color.Black)) {
         LazyColumn {
             items(100) {
-                Text(text = "ejnenfinefnei", modifier = Modifier.fillMaxSize(),
-                )
-
+                Text(text = "ejnenfinefnei", modifier = Modifier.fillMaxSize(),)
             }
         }
     }

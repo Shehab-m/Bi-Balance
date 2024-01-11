@@ -28,11 +28,32 @@ val Typography = Typography(
         lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     ),
+    labelLarge = TextStyle(
+        fontFamily = dinNextArabic,
+        fontWeight = FontWeight.W500,
+        fontSize = 22.sp,
+        lineHeight = 22.sp,
+        letterSpacing = 0.5.sp
+    ),
     labelMedium = TextStyle(
+        fontFamily = dinNextArabic,
+        fontWeight = FontWeight.W600,
+        fontSize = 16.sp,
+        lineHeight = 22.sp,
+        letterSpacing = 0.5.sp
+    ),
+    labelSmall = TextStyle(
         fontFamily = dinNextArabic,
         fontWeight = FontWeight.W500,
         fontSize = 15.sp,
         lineHeight = 22.sp,
+        letterSpacing = 0.5.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = dinNextArabic,
+        fontWeight = FontWeight.W700,
+        fontSize = 23.sp,
+        lineHeight = 43.sp,
         letterSpacing = 0.5.sp
     ),
 
