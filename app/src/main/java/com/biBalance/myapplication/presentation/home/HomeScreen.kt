@@ -67,10 +67,10 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
     Scaffold { paddingValues ->
         BiAnimationContent(
-            contentState = false,
+            state = false,
             content = {
                 LazyVerticalGrid(
-                    modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
+                    modifier = Modifier.fillMaxSize().padding(start = 20.dp,end = 20.dp, top = 20.dp),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {

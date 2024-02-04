@@ -55,7 +55,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.1")
@@ -64,6 +63,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.compose.material:material:1.5.4")
     // Navigation
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
@@ -98,4 +100,14 @@ dependencies {
     // Compose
     implementation ("androidx.compose.foundation:foundation:1.5.4")
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.30.1")
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.google.code.gson:gson:2.10.1")
+    //okHttp
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.11")
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.11"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.11")
 }

@@ -8,8 +8,9 @@ fun AppNavGraph() {
     val navController = LocalNavigationProvider.current
     NavHost(
         navController = navController,
-        startDestination = Graph.HOME
+        startDestination = Graph.LOGIN
     ) {
+        loginNavGraph()
         homeNavGraph()
         profileNavGraph()
         challengesNavGraph()

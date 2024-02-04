@@ -8,4 +8,17 @@
     <string name="screen_label">علامة شاشة</string>
     <string name="welcome_text">مرحبا بك يا صديقي , هيا بنا لنبدأ رحلتنا معنا</string>
     <string name="challenges_text">اختر تمرين لتبدأ به , هل انت مستعد؟</string>
+    <string name="email_should_not_be_empty">البريد الإلكتروني يجب ألا يكون فارغًا</string>
+    <string name="invalid_email">بريد إلكتروني غير صالح</string>
+    <string name="password_should_not_be_empty">كلمة المرور يجب ألا تكون فارغة</string>
+    <string name="account_already_exist">هذا الحساب موجود بالفعل</string>
+    <string name="something_went_wrong_please_try_again">حدث خطأ ما، من فضلك تحقق من اتصالك بالإنترنت وحاول مرة أخرى.</string>
+    <string name="Invalid_username_or_password">اسم المستخدم أو كلمة المرور غير صالحة</string>
+    <string name="Login">تسجيل الدخول</string>
+    <string name="User_name">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="dont_have_account">ليس لديك حساب؟</string>
+    <string name="create_account">انشاء حساب</string>
+    <string name="please_fill_required_fields">الرجاء ملء الحقول المطلوبة</string>
+
 </resources>

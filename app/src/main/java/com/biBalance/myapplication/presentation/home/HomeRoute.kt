@@ -8,7 +8,11 @@ import com.biBalance.myapplication.presentation.navigation.Screens
 private val ROUTE = Screens.HomeScreen.route
 
 fun NavController.navigateToHomeScreen() {
-    navigate(ROUTE)
+    navigate(ROUTE){
+        popUpTo(ROUTE){
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.homeRoute() {

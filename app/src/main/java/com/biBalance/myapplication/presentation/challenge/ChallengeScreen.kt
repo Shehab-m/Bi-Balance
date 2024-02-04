@@ -66,7 +66,7 @@ fun ChallengeScreenContent(state: ChallengeUIState, listener: ChallengeInteracti
             )
             BiAnimationContent(
                 modifier = Modifier.background(BlueMedium100).padding(paddingValues),
-                contentState = state.isStartScreenVisible,
+                state = state.isStartScreenVisible,
                 topBar = {
                     Row(modifier = Modifier.padding(top = 20.dp, bottom = 24.dp)) {
                         IconButton(onClick = { listener.onClickBack() }) {

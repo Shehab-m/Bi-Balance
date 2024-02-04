@@ -8,4 +8,18 @@
     <string name="screen_label">screen.label</string>
     <string name="welcome_text">Hello! let\'s start our adventure together</string>
     <string name="challenges_text">Choose your challenge, are you ready!</string>
+    <string name="email_should_not_be_empty">email should not be empty</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="password_should_not_be_empty">Password should not be empty</string>
+    <string name="account_already_exist">This account already exist</string>
+    <string name="something_went_wrong_please_try_again">Something went wrong,please check your network and try again.</string>
+    <string name="Invalid_username_or_password">Invalid username or password</string>
+    <string name="Login">Login</string>
+    <string name="User_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="dont_have_account">don\'t have account?</string>
+    <string name="create_account">create account</string>
+    <string name="please_fill_required_fields">Please fill required fields</string>
+
+
 </resources>

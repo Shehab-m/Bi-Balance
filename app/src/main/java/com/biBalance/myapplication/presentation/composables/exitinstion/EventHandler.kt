@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.presentation.composables.exitinstion
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
@@ -8,6 +9,7 @@ import com.biBalance.myapplication.presentation.navigation.LocalNavigationProvid
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.transform
 
@@ -16,7 +18,9 @@ import kotlinx.coroutines.flow.transform
 fun <E: BaseUiEffect> EventHandler(effect: Flow<E>, function: (E, NavHostController) -> Unit) {
     val navController = LocalNavigationProvider.current
     LaunchedEffect(key1 = Unit) {
-        effect.throttleFirst(500).collectLatest { effect ->
+        effect.catch {
+            Log.d("EventHandler: ", "error")
+        }.collectLatest { effect ->
             function(effect, navController)
         }
     }
