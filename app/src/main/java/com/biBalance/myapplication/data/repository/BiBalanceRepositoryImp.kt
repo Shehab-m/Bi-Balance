@@ -4,6 +4,9 @@ import android.util.Log
 import com.biBalance.myapplication.data.source.local.AuthPreferences
 import com.biBalance.myapplication.data.source.remote.BiBalanceApiService
 import com.biBalance.myapplication.data.source.remote.model.BaseResponse
+import com.biBalance.myapplication.data.source.remote.model.Level
+import com.biBalance.myapplication.data.source.remote.model.LevelActivities
+import com.biBalance.myapplication.data.source.remote.model.UserData
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -14,7 +17,18 @@ class BiBalanceRepositoryImp @Inject constructor(
 
     override suspend fun loginUser(email:String,password: String) {
         val response = wrap {biBalanceService.loginUser(email = email,password = password)}.data
-        datastore.saveTokens(response!!.token)
+        datastore.saveTokens(response.token)
+    }
+
+    override suspend fun getHomeLevels(): List<Level> {
+        return wrap {biBalanceService.getHomeLevels()}.data
+    }
+
+    override suspend fun getLevelActivities(id:Int): LevelActivities {
+        return wrap {biBalanceService.getLevelActivities(id)}.data
+    }
+    override suspend fun getUserData(): UserData {
+        return wrap {biBalanceService.getUserData()}.data
     }
 
     override suspend fun getAccessToken(): String? {

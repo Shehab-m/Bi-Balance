@@ -39,7 +39,7 @@ fun AnimatedProgressBar(
 ) {
     var animationPlayed by rememberSaveable { mutableStateOf(false) }
     val animatedProgress by animateFloatAsState(
-        targetValue = if (animationPlayed) ((currentProgress.toFloat() / maxProgress.toFloat())) else 0f,
+        targetValue = if (animationPlayed && currentProgress > 0) ((currentProgress.toFloat() / maxProgress.toFloat())) else 0f,
         animationSpec = tween(animationDuration, easing = LinearEasing), label = "progress"
     )
     LaunchedEffect(true) { animationPlayed = true }

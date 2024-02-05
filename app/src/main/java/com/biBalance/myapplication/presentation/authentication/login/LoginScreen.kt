@@ -4,7 +4,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,6 +44,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiTextField
+import com.biBalance.myapplication.presentation.composables.LoadingProgress
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
 import com.biBalance.myapplication.presentation.home.navigateToHomeScreen
 
@@ -70,7 +70,6 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
             }
         }
     }
-//    viewModel.checkIfUserLoggedIn()
     LoginContent(listener = viewModel, state = state)
 }
 
@@ -86,26 +85,20 @@ fun LoginContent(
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
    BiAnimationContent(
-       state = state.isLoading,
+       state = false,
        content = {
            Scaffold(
-               modifier = Modifier
-                   .fillMaxSize()
-                   .padding(horizontal = 16.dp)
+               modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)
            ) { paddingValues->
                Column(
-                   modifier = Modifier
-                       .fillMaxSize()
-                       .padding(paddingValues)
+                   modifier = Modifier.fillMaxSize().padding(paddingValues)
                        .verticalScroll(rememberScrollState()),
                    horizontalAlignment = Alignment.CenterHorizontally,
                ) {
                    Image(
                        painter = painterResource(id = R.drawable.character_yoga),
                        contentDescription ="" ,
-                       modifier = Modifier
-                           .size(393.dp, 93.dp)
-                           .padding(top = 24.dp)
+                       modifier = Modifier.size(393.dp, 93.dp).padding(top = 24.dp)
                    )
                    Text(
                        text = stringResource(R.string.Login),
@@ -180,16 +173,14 @@ fun LoginContent(
                            .padding(top = 8.dp, bottom = 16.dp)
                    )
                    Button(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .padding(top = 64.dp, bottom = 12.dp),
+                       modifier = Modifier.fillMaxWidth().padding(top = 64.dp, bottom = 12.dp),
                        onClick = listener::onClickLogin,
                        shape =  RoundedCornerShape(4.dp),
                        enabled = state.isButtonEnabled
                    ) {
                        if (state.isLoading) {
-                           CircularProgressIndicator(modifier = Modifier.fillMaxSize(),
-                               color = MaterialTheme.colorScheme.primary, strokeWidth = 5.dp)
+                           CircularProgressIndicator(modifier = Modifier.size(30.dp),
+                               color = MaterialTheme.colorScheme.primary, strokeWidth = 3.dp)
                        } else {
                            Text(
                                text = stringResource(R.string.Login),
@@ -218,14 +209,7 @@ fun LoginContent(
                }
            }
        },
-       loadingContent = {
-           Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-               CircularProgressIndicator(
-                   modifier = Modifier.size(55.dp),
-                   color = MaterialTheme.colorScheme.primary, strokeWidth = 4.dp
-               )
-           }
-       }
+       loadingContent = { LoadingProgress() }
    )
 }
 

@@ -26,7 +26,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.biBalance.myapplication.presentation.navigation.AppNavGraph
 import com.biBalance.myapplication.presentation.navigation.BottomBar
 import com.biBalance.myapplication.presentation.navigation.LocalNavigationProvider
 import com.biBalance.myapplication.ui.theme.BiBalanceTheme
@@ -69,7 +68,7 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize(),
                             contentAlignment = Alignment.BottomCenter
                         ) {
-                            AppNavGraph()
+                            App()
                             AnimatedVisibility(
                                 visible = bottomBarOffsetHeightPx.value in -60f..0f,
                                 enter = slideInVertically(initialOffsetY = { it }),

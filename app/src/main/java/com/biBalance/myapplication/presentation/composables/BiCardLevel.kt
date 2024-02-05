@@ -43,6 +43,7 @@ fun BiCardLevel(
     backgroundColor: Color,
     onClick: () -> Unit = {},
     isActive: Boolean = true,
+    score: Int
 ) {
     if (isActive) {
         Card(
@@ -67,7 +68,7 @@ fun BiCardLevel(
                 ) {
                     AnimatedProgressBarCircular(
                         maxProgress = 4,
-                        currentProgress = 3,
+                        currentProgress = score,
                         strokeWidth = 2.dp
                     )
                     Card(
@@ -86,7 +87,7 @@ fun BiCardLevel(
                                 label = "progress"
                             )
                             LaunchedEffect(key1 = true) {
-                                percentage = 3f / 4f * 100f
+                                percentage = if (score >0 ) score.toFloat() / 4f * 100f else 0f
                             }
                             Text(
                                 text = "${animatedProgress.toInt()}%",
@@ -130,5 +131,5 @@ fun BiCardLevel(
 @Preview
 @Composable
 fun BiCardPreview() {
-    BiCardLevel(title = "Level One", backgroundColor = LightBlue100)
+    BiCardLevel(title = "Level One", backgroundColor = LightBlue100, score = 1)
 }

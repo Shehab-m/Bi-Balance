@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +34,7 @@ import com.biBalance.myapplication.presentation.challenge.navigateToChallengeScr
 import com.biBalance.myapplication.presentation.challenges.composable.BiCardChallenge
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiProgressBar
+import com.biBalance.myapplication.presentation.composables.LoadingProgress
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
 import com.biBalance.myapplication.ui.theme.Beige100
 import com.biBalance.myapplication.ui.theme.LightBlue100
@@ -53,16 +54,17 @@ fun ChallengesScreen(viewModel: ChallengesViewModel = hiltViewModel()) {
     ChallengesScreenContent(state, viewModel)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesInteractionListener) {
     Scaffold { paddingValues ->
         BiAnimationContent(
-            state = false,
+            state = state.isLoading,
             content = {
                 LazyVerticalGrid(
-                    modifier = Modifier.fillMaxSize().padding(start = 20.dp,end = 20.dp, top = 20.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 20.dp, end = 20.dp, top = 20.dp),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
@@ -84,7 +86,7 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                                 }
                                 Row {
                                     Text(
-                                        text = "Shady Alaa",
+                                        text = state.userName,
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier.padding(horizontal = 8.dp)
@@ -103,7 +105,7 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "${75}%",
+                                    text = "${state.totalScore}%",
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.primary
@@ -116,42 +118,41 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                                 )
                             }
                             BiProgressBar(
-                                progressPercentage = 3/4f,
+                                progressPercentage = state.totalScore/8f,
                                 modifier = Modifier.fillMaxWidth(),
                             )
                             Text(
                                 text = stringResource(R.string.challenges_text),
-                                textAlign = TextAlign.End,
+                                textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 48.dp)
                             )
-                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.group_873),
+                            Row(modifier = Modifier.fillMaxWidth()) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.character_power),
                                     contentDescription = "hi",
                                     modifier = Modifier.size(170.dp),
-                                    tint = MaterialTheme.colorScheme.primary
                                 )
                             }
                         }
                     }
-                    items(4) { index ->
+                    itemsIndexed(state.activities.levelActivities) { index, activity ->
                         val colors = listOf(LightBlue100, Beige100, LightPurple100, LightGreen100)
                         val colorIndex = (index % colors.size)
                         val selectedColor = colors[colorIndex]
                         BiCardChallenge(
                             modifier = Modifier.padding(top = 16.dp),
-                            title = "Emotional",
+                            title = activity.typeName,
                             backgroundColor = selectedColor,
-                            onClick = { listener.onClickChallenge(1) },
+                            onClick = { listener.onClickChallenge(activity.id) },
                         )
                     }
                 }
             },
-            loadingContent = {}
+            loadingContent = { LoadingProgress() }
         )
     }
 }

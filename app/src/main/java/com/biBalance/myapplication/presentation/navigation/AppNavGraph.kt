@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 
 @Composable
-fun AppNavGraph() {
+fun AppNavGraph(startDestination: String) {
     val navController = LocalNavigationProvider.current
     NavHost(
         navController = navController,
-        startDestination = Graph.LOGIN
+        startDestination = startDestination
     ) {
         loginNavGraph()
         homeNavGraph()
