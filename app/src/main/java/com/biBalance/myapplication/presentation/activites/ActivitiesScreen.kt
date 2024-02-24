@@ -1,6 +1,7 @@
-package com.biBalance.myapplication.presentation.challenges
+package com.biBalance.myapplication.presentation.activites
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,9 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
-import com.biBalance.myapplication.presentation.challenge.navigateToChallengeScreen
-import com.biBalance.myapplication.presentation.challenges.composable.BiCardChallenge
+import com.biBalance.myapplication.presentation.activity.navigateToActivityScreen
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
+import com.biBalance.myapplication.presentation.composables.BiCardActivity
 import com.biBalance.myapplication.presentation.composables.BiProgressBar
 import com.biBalance.myapplication.presentation.composables.LoadingProgress
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
@@ -42,21 +44,23 @@ import com.biBalance.myapplication.ui.theme.LightGreen100
 import com.biBalance.myapplication.ui.theme.LightPurple100
 
 @Composable
-fun ChallengesScreen(viewModel: ChallengesViewModel = hiltViewModel()) {
+fun ActivitiesScreen(viewModel: ActivitiesViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     EventHandler(viewModel.effect) { effect, navController ->
         when (effect) {
-            is ChallengesUIEffect.OnClickChallenge -> {
-                navController.navigateToChallengeScreen()
+            is ActivitiesUIEffect.OnClickActivity -> {
+                Log.d("ActivitiesScreen: ", effect.id.toString())
+                navController.navigateToActivityScreen(effect.id)
             }
         }
     }
-    ChallengesScreenContent(state, viewModel)
+    ActivitiesScreenContent(state, viewModel)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesInteractionListener) {
+fun ActivitiesScreenContent(state: ActivitiesUIState, listener: ActivitiesInteractionListener) {
     Scaffold { paddingValues ->
         BiAnimationContent(
             state = state.isLoading,
@@ -140,14 +144,14 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
                         }
                     }
                     itemsIndexed(state.activities.levelActivities) { index, activity ->
-                        val colors = listOf(LightBlue100, Beige100, LightPurple100, LightGreen100)
+                        val colors = listOf(LightGreen100,LightBlue100, Beige100, LightPurple100)
                         val colorIndex = (index % colors.size)
                         val selectedColor = colors[colorIndex]
-                        BiCardChallenge(
+                        BiCardActivity(
                             modifier = Modifier.padding(top = 16.dp),
                             title = activity.typeName,
                             backgroundColor = selectedColor,
-                            onClick = { listener.onClickChallenge(activity.id) },
+                            onClick = { listener.onClickActivity(activity.id) },
                         )
                     }
                 }
@@ -160,5 +164,5 @@ fun ChallengesScreenContent(state: ChallengesUIState, listener: ChallengesIntera
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    ChallengesScreen()
+    ActivitiesScreen()
 }

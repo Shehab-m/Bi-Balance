@@ -3,6 +3,7 @@ package com.biBalance.myapplication.data.repository
 import android.util.Log
 import com.biBalance.myapplication.data.source.local.AuthPreferences
 import com.biBalance.myapplication.data.source.remote.BiBalanceApiService
+import com.biBalance.myapplication.data.source.remote.model.Activity
 import com.biBalance.myapplication.data.source.remote.model.BaseResponse
 import com.biBalance.myapplication.data.source.remote.model.Level
 import com.biBalance.myapplication.data.source.remote.model.LevelActivities
@@ -26,6 +27,9 @@ class BiBalanceRepositoryImp @Inject constructor(
 
     override suspend fun getLevelActivities(id:Int): LevelActivities {
         return wrap {biBalanceService.getLevelActivities(id)}.data
+    }
+    override suspend fun getActivity(id:Int): Activity {
+        return wrap {biBalanceService.getActivity(id)}.data
     }
     override suspend fun getUserData(): UserData {
         return wrap {biBalanceService.getUserData()}.data

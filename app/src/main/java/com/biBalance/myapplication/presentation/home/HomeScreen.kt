@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
-import com.biBalance.myapplication.presentation.challenges.navigateToChallengesScreen
+import com.biBalance.myapplication.presentation.activites.navigateToChallengesScreen
 import com.biBalance.myapplication.presentation.composables.AnimatedProgressBar
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiCardLevel
@@ -147,6 +147,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
 
                         }
                     }
+                    Log.d("HomeScreenContent: ", state.levels.toString())
                     itemsIndexed(state.levels) { index, level ->
                         val colors = listOf(LightBlue100, Beige100, LightPurple100, LightGreen100)
                         val colorIndex = (index % colors.size)

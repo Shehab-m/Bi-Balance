@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.challenges.composable
+package com.biBalance.myapplication.presentation.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,7 +27,7 @@ import com.biBalance.myapplication.ui.theme.dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BiCardChallenge(
+fun BiCardActivity(
     modifier: Modifier = Modifier,
     title: String,
     backgroundColor: Color,
@@ -37,7 +37,7 @@ fun BiCardChallenge(
         modifier = modifier,
         shape = RoundedCornerShape(MaterialTheme.dimens.biCardRadius),
         colors = CardDefaults.cardColors(backgroundColor),
-        onClick = { onClick() }
+        onClick = onClick
     ) {
         Column(
             verticalArrangement = Arrangement.Center,

@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.data.source.remote
 
+import com.biBalance.myapplication.data.source.remote.model.Activity
 import com.biBalance.myapplication.data.source.remote.model.BaseResponse
 import com.biBalance.myapplication.data.source.remote.model.Level
 import com.biBalance.myapplication.data.source.remote.model.LevelActivities
@@ -24,6 +25,11 @@ interface BiBalanceApiService {
     suspend fun getLevelActivities(
         @Path("id") id: Int
     ): Response<BaseResponse<LevelActivities>>
+
+    @GET("showActivity/{id}")
+    suspend fun getActivity(
+        @Path("id") id: Int
+    ): Response<BaseResponse<Activity>>
 
     @GET("homepage")
     suspend fun getHomeLevels(

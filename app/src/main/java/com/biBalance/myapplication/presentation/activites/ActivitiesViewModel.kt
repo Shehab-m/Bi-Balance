@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.challenges
+package com.biBalance.myapplication.presentation.activites
 
 import androidx.lifecycle.SavedStateHandle
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
@@ -11,11 +11,11 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class ChallengesViewModel @Inject constructor(
+class ActivitiesViewModel @Inject constructor(
     private val repository: BiBalanceRepository,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<ChallengesUIState, ChallengesUIEffect>(ChallengesUIState()),
-    ChallengesInteractionListener {
+) : BaseViewModel<ActivitiesUIState, ActivitiesUIEffect>(ActivitiesUIState()),
+    ActivitiesInteractionListener {
 
     private val activitiesArgs = ActivitiesArgs(savedStateHandle)
 
@@ -24,8 +24,8 @@ class ChallengesViewModel @Inject constructor(
         getLevelActivities()
     }
 
-    override fun onClickChallenge(levelId: Int) {
-        sendEffect(ChallengesUIEffect.OnClickChallenge(1))
+    override fun onClickActivity(levelId: Int) {
+        sendEffect(ActivitiesUIEffect.OnClickActivity(levelId))
     }
 
     private fun getUserData() {

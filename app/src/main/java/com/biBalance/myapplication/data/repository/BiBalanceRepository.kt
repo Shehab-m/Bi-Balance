@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.data.repository
 
+import com.biBalance.myapplication.data.source.remote.model.Activity
 import com.biBalance.myapplication.data.source.remote.model.Level
 import com.biBalance.myapplication.data.source.remote.model.LevelActivities
 import com.biBalance.myapplication.data.source.remote.model.UserData
@@ -10,4 +11,5 @@ interface BiBalanceRepository {
     suspend fun getHomeLevels(): List<Level>
     suspend fun getUserData(): UserData
     suspend fun getLevelActivities(id:Int): LevelActivities
+    suspend fun getActivity(id:Int): Activity
 }

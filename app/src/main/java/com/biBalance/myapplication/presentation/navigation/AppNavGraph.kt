@@ -13,7 +13,7 @@ fun AppNavGraph(startDestination: String) {
         loginNavGraph()
         homeNavGraph()
         profileNavGraph()
-        challengesNavGraph()
+        activitiesNavGraph()
     }
 }
 

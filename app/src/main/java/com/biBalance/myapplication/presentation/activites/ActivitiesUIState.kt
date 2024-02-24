@@ -1,9 +1,9 @@
-package com.biBalance.myapplication.presentation.challenges
+package com.biBalance.myapplication.presentation.activites
 
 import com.biBalance.myapplication.data.source.remote.model.LevelActivities
 import com.biBalance.myapplication.util.ErrorHandler
 
-data class ChallengesUIState(
+data class ActivitiesUIState(
     val isLoadingUserData: Boolean = true,
     val isLoadingActivities: Boolean = true,
     val isError: Boolean = false,

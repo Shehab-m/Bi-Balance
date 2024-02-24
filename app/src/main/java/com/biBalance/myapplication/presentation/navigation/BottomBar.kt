@@ -95,7 +95,7 @@ private fun checkBottomBarState(navBackStackEntry: NavBackStackEntry): MutableSt
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
     val bottomBarScreens = listOf(
         Screens.HomeScreen.route,
-        Screens.ChallengesScreen.route,
+        Screens.ActivitiesScreen.route,
         Screens.ProfileScreen.route,
         Screens.ChatScreen.route,
         Screens.ControlPanelScreen.route,

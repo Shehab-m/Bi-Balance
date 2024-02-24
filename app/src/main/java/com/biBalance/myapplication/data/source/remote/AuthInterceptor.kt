@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.data.source.remote
 
+import android.util.Log
 import com.biBalance.myapplication.data.source.local.AuthPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -12,7 +13,7 @@ class AuthInterceptor @Inject constructor(
 
         val accessToken = authPreferences.storedAccessToken.takeUnless { it.isNullOrEmpty() }
             ?: authPreferences.getAccessToken()
-
+        Log.d("Uer Token: ", "$accessToken")
         return makeRequest(chain, accessToken)
     }
 
@@ -36,6 +37,7 @@ class AuthInterceptor @Inject constructor(
         private const val API_KEY_VALUE = "application/json"
         private const val AUTHORIZATION = "Authorization"
         const val BASE_URL = "http://10.0.2.2:8000/api/"
+//        const val BASE_URL = "http://127.0.0.1:8000/api/"
 //        const val BASE_URL = "http://127.0.0.1:8000/"
 //const val BASE_URL = "https://10.0.2.2:8000/api/"
 

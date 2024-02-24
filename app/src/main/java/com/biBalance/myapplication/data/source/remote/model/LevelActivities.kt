@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class LevelActivities (
     @SerializedName("levelActivities")
-    val levelActivities: List<Activity>,
+    val levelActivities: List<LevelActivity>,
 ){
-    data class Activity(
+    data class LevelActivity(
         @SerializedName("id")
         val id: Int,
         @SerializedName("type")

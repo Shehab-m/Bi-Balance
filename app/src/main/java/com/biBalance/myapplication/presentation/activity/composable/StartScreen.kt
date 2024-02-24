@@ -1,6 +1,7 @@
-package com.biBalance.myapplication.presentation.challenge.composable
+package com.biBalance.myapplication.presentation.activity.composable
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,12 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.biBalance.myapplication.R
-import com.biBalance.myapplication.presentation.challenge.ChallengeInteractionListener
+import com.biBalance.myapplication.presentation.activity.ActivityInteractionListener
 import com.biBalance.myapplication.presentation.composables.ContentVisibility
-import com.biBalance.myapplication.ui.theme.OffWhite100
 import com.biBalance.myapplication.ui.theme.White100
 
 @SuppressLint("UnusedContentLambdaTargetStateParameter")
@@ -33,8 +33,8 @@ fun StartScreen(
     modifier: Modifier = Modifier,
     state: Boolean,
     title: String,
-    body: String,
-    listener: ChallengeInteractionListener
+//    body: String,
+    listener: ActivityInteractionListener
 ) {
     ContentVisibility(
         state = state
@@ -61,18 +61,17 @@ fun StartScreen(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSecondary,
                 )
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = body,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.labelMedium,
-                    color = OffWhite100,
-                )
+//                Text(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    text = body,
+//                    textAlign = TextAlign.Center,
+//                    style = MaterialTheme.typography.labelMedium,
+//                    color = OffWhite100,
+//                )
                 Icon(
-                    painter = painterResource(id = R.drawable.group_873),
+                    painter = painterResource(id = R.drawable.character_hi),
                     contentDescription = "hi",
                     modifier = Modifier.size(350.dp).fillMaxWidth(),
-                    tint = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Row(
@@ -80,11 +79,12 @@ fun StartScreen(
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextButton(onClick = { listener.onClickNext() }) {
+                    TextButton(onClick = { listener.onClickNextStartScreen() }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 modifier = Modifier,
                                 text = "Next",
+                                textDecoration = TextDecoration.Underline,
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.labelLarge,
                                 color = White100,
@@ -102,11 +102,12 @@ fun StartScreen(
     }
 }
 
+/*
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    StartScreen(Modifier,true,"","",object :ChallengeInteractionListener{
+    StartScreen(Modifier,true,"","",object :ActivityInteractionListener{
         override fun onClickNext() {}
         override fun onClickBack() {}
     })
-}
+}*/

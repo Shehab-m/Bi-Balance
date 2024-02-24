@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.challenge.composable
+package com.biBalance.myapplication.presentation.activity.composable
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState

@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.challenges
+package com.biBalance.myapplication.presentation.activites
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -8,13 +8,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.biBalance.myapplication.presentation.navigation.Screens
 
-private val ROUTE = Screens.ChallengesScreen.route
+private val ROUTE = Screens.ActivitiesScreen.route
 
 fun NavController.navigateToChallengesScreen(activitiesId:Int) {
     navigate("$ROUTE/$activitiesId")
 }
 
-fun NavGraphBuilder.challengesRoute() {
+fun NavGraphBuilder.activitiesRoute() {
     composable(
         route = "$ROUTE/{${ActivitiesArgs.ACTIVITIES_ID}}",
         arguments = listOf(
@@ -22,7 +22,7 @@ fun NavGraphBuilder.challengesRoute() {
                 NavType.IntType
             }
         )
-    )  { ChallengesScreen() }
+    )  { ActivitiesScreen() }
 }
 
 class ActivitiesArgs(savedStateHandle: SavedStateHandle) {
