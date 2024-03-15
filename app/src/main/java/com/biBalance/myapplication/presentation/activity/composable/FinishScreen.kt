@@ -1,6 +1,7 @@
 package com.biBalance.myapplication.presentation.activity.composable
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -49,13 +51,14 @@ fun FinishScreen(
             }
             Column(
                 modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     painter = painterResource(id = R.drawable.stars),
                     contentDescription = "hi",
-                    modifier = Modifier.size(350.dp).fillMaxWidth().padding(bottom = 32.dp),
+                    modifier = Modifier.size(150.dp).scale(2.3f).fillMaxWidth().padding(start = 0.dp,bottom = 32.dp),
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
@@ -64,7 +67,7 @@ fun FinishScreen(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSecondary,
                 )
-                Icon(
+                Image(
                     painter = painterResource(id = R.drawable.character_wink),
                     contentDescription = "hi",
                     modifier = Modifier.size(350.dp).fillMaxWidth(),
@@ -75,7 +78,7 @@ fun FinishScreen(
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextButton(onClick = { listener.onClickNextStartScreen() }) {
+                    TextButton(onClick = { listener.onClickNextFinishScreen() }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 modifier = Modifier,

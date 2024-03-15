@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.presentation.activity.composable
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,15 +45,14 @@ fun ActivityContent(
                 style = MaterialTheme.typography.labelMedium,
                 color = OffWhite100,
             )
-            Icon(
+            Image(
                 painter = painter,
                 contentDescription = "hi",
                 modifier = Modifier.size(350.dp).fillMaxWidth(),
-                tint = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.weight(1f))
             Row(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp, horizontal = 20.dp),
+                modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {

@@ -26,10 +26,10 @@ sealed class BottomBarItems(
         selectedIcon = R.drawable.messages_selected,
         unSelectedIcon = R.drawable.messages
     )
-    object ControlPanel : BottomBarItems(
-        route = Graph.CONTROL_PANEL,
-        label = R.string.control_panel,
-        selectedIcon = R.drawable.activity_selected,
-        unSelectedIcon = R.drawable.activity
+    object Community : BottomBarItems(
+        route = Graph.COMMUNITY,
+        label = R.string.community,
+        selectedIcon = R.drawable.people_selected,
+        unSelectedIcon = R.drawable.people
     )
 }

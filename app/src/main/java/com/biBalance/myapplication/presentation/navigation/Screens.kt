@@ -7,6 +7,10 @@ sealed class Screens(val route: String) {
     object ActivitiesScreen : Screens("activitiesScreen")
     object ActivityScreen : Screens("activityScreen")
     object ProfileScreen : Screens("profileScreen")
+    object ProfileActivitiesScreen : Screens("ProfileActivitiesScreen")
+    object WritingScreen : Screens("WritingScreen")
+    object TodoScreen : Screens("TodoScreen")
+    object PasswordScreen : Screens("PasswordScreen")
     object ChatScreen : Screens("chatScreen")
-    object ControlPanelScreen : Screens("controlPanelScreen")
+    object CommunityScreen : Screens("communityPanelScreen")
 }

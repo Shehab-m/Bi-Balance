@@ -64,8 +64,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.compose.material3:material3:1.1.2")
-    implementation("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.material:material:1.6.3")
+    implementation ("androidx.activity:activity-ktx:1.8.2")
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.material:material:1.6.3")
+    implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
     // Navigation
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
@@ -110,4 +113,12 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
     testImplementation("com.squareup.okhttp3:mockwebserver:5.0.0-alpha.11")
+
+    implementation("org.apache.commons:commons-text:1.9")
+
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+    //Splash Screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

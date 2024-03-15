@@ -4,5 +4,6 @@ import com.biBalance.myapplication.presentation.base.BaseUiEffect
 
 sealed class ActivityUIEffect: BaseUiEffect {
     object OnClickBack: ActivityUIEffect()
+    object GoToActivitiesScreen: ActivityUIEffect()
 
 }

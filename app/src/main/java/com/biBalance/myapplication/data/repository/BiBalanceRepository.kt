@@ -7,6 +7,7 @@ import com.biBalance.myapplication.data.source.remote.model.UserData
 
 interface BiBalanceRepository {
     suspend fun loginUser(email:String,password: String)
+    suspend fun storeResult(id: Int,score: Int)
     suspend fun getAccessToken(): String?
     suspend fun getHomeLevels(): List<Level>
     suspend fun getUserData(): UserData

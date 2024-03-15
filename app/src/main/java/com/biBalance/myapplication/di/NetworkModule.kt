@@ -3,6 +3,7 @@ package com.biBalance.myapplication.di
 import com.biBalance.myapplication.data.source.local.AuthPreferences
 import com.biBalance.myapplication.data.source.remote.AuthInterceptor
 import com.biBalance.myapplication.data.source.remote.BiBalanceApiService
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,7 +42,7 @@ object NetworkModule {
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         authInterceptor: AuthInterceptor,
-        ): OkHttpClient {
+    ): OkHttpClient {
         return OkHttpClient
             .Builder()
             .addInterceptor(loggingInterceptor)
@@ -60,7 +61,14 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideGson(): GsonConverterFactory =
-        GsonConverterFactory.create()
+        GsonConverterFactory.create(
+            GsonBuilder()
+                .setLenient()
+                .serializeNulls()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .setPrettyPrinting()
+                .create()
+        )
 
     @Singleton
     @Provides

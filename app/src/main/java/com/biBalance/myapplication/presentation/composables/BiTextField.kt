@@ -20,7 +20,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.biBalance.myapplication.ui.theme.Bink100
+import com.biBalance.myapplication.ui.theme.GreyMedium100
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +41,8 @@ fun BiTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     placeHolder: String = "",
     enabled: Boolean = true,
-    singeLine: Boolean = true
+    singeLine: Boolean = true,
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     var text by remember(value) { mutableStateOf(value) }
     Log.d("checkIf text: ", text)
@@ -65,12 +69,19 @@ fun BiTextField(
             keyboardOptions = keyboardOptions,
             singleLine = singeLine,
             keyboardActions = keyboardActions,
-            textStyle = MaterialTheme.typography.bodyMedium
+            textStyle = MaterialTheme.typography.bodyMedium,
+            visualTransformation = visualTransformation,
+            placeholder = {
+                Text(
+                    text = placeHolder,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = GreyMedium100)
+                )
+            }
         )
         AnimatedVisibility (errorMessage.isNotEmpty()) {
             Text(
                 text = errorMessage,
-                color = MaterialTheme.colorScheme.primary,
+                color = Bink100,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)
             )

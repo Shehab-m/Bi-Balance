@@ -3,12 +3,15 @@ package com.biBalance.myapplication.presentation.authentication.login
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.biBalance.myapplication.presentation.navigation.Graph
 import com.biBalance.myapplication.presentation.navigation.Screens
 
 private val ROUTE = Screens.LoginScreen.route
 
 fun NavController.navigateToLogin() {
-    navigate(ROUTE)
+    navigate(ROUTE) {
+        popBackStack(Graph.LOGIN, inclusive = true)
+    }
 }
 
 fun NavGraphBuilder.loginRoute() {

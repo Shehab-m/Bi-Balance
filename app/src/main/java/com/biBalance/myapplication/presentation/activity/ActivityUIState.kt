@@ -8,6 +8,7 @@ data class ActivityUIState(
     val error: ErrorHandler = ErrorHandler.NoConnection,
     val isStartScreenVisible: Boolean = true,
     val isFinishScreenVisible: Boolean = false,
+    val isActivityContentVisible: Boolean = false,
     val activityStateId: Int = -1,
     val activityDescription: List<String> = emptyList(),
     val activityTitle: String = "",

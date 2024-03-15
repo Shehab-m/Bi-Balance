@@ -25,6 +25,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.biBalance.myapplication.presentation.navigation.BottomBar
 import com.biBalance.myapplication.presentation.navigation.LocalNavigationProvider
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("RememberReturnType", "UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         setContent {
             CompositionLocalProvider(LocalNavigationProvider provides rememberNavController()) {
                 BiBalanceTheme {

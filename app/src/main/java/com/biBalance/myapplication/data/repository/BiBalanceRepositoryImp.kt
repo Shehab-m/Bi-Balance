@@ -21,6 +21,10 @@ class BiBalanceRepositoryImp @Inject constructor(
         datastore.saveTokens(response.token)
     }
 
+    override suspend fun storeResult(id: Int,score: Int) {
+        wrap {biBalanceService.storeResult(id = id,score = score)}.data
+    }
+
     override suspend fun getHomeLevels(): List<Level> {
         return wrap {biBalanceService.getHomeLevels()}.data
     }
@@ -29,7 +33,9 @@ class BiBalanceRepositoryImp @Inject constructor(
         return wrap {biBalanceService.getLevelActivities(id)}.data
     }
     override suspend fun getActivity(id:Int): Activity {
-        return wrap {biBalanceService.getActivity(id)}.data
+        val result = wrap {biBalanceService.getActivity(id = id)}.data
+        Log.d( "getActivity: ",result.toString() )
+        return result
     }
     override suspend fun getUserData(): UserData {
         return wrap {biBalanceService.getUserData()}.data

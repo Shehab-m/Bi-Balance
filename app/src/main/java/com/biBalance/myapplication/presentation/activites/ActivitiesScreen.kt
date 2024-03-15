@@ -122,7 +122,7 @@ fun ActivitiesScreenContent(state: ActivitiesUIState, listener: ActivitiesIntera
                                 )
                             }
                             BiProgressBar(
-                                progressPercentage = state.totalScore/8f,
+                                progressPercentage = state.totalScore/32f,
                                 modifier = Modifier.fillMaxWidth(),
                             )
                             Text(

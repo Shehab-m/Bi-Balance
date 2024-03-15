@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.presentation.navigation
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.slideInVertically
@@ -42,7 +43,7 @@ fun BottomBar(modifier: Modifier = Modifier) {
     val screens = listOf(
         BottomBarItems.Home,
         BottomBarItems.Chat,
-        BottomBarItems.ControlPanel,
+        BottomBarItems.Community,
         BottomBarItems.Profile,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -58,11 +59,13 @@ fun BottomBar(modifier: Modifier = Modifier) {
         exit = slideOutVertically(targetOffsetY = { it }),
         content = {
             BiNavigationBar(
-                modifier = modifier.drawTopIndicator(xOffsetAnimated).background(MaterialTheme.colorScheme.background)
+                modifier = modifier.drawTopIndicator(xOffsetAnimated)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(WindowInsets.navigationBars.asPaddingValues())
             ) {
                 screens.forEach { screen ->
-                    val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
+                    val selected =
+                        currentDestination?.hierarchy?.any { it.route == screen.route } == true
                     val icon = if (selected) screen.selectedIcon else screen.unSelectedIcon
                     BiNavigationBarItem(
                         icon = { color ->
@@ -93,15 +96,22 @@ fun BottomBar(modifier: Modifier = Modifier) {
 @Composable
 private fun checkBottomBarState(navBackStackEntry: NavBackStackEntry): MutableState<Boolean> {
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+    val screens = listOf(Screens.ActivitiesScreen.route)
     val bottomBarScreens = listOf(
         Screens.HomeScreen.route,
-        Screens.ActivitiesScreen.route,
+        "activitiesScreen/{activitiesId}",
         Screens.ProfileScreen.route,
         Screens.ChatScreen.route,
-        Screens.ControlPanelScreen.route,
+        Screens.CommunityScreen.route,
     )
+    Log.d("checkBottomBarState: ", "${navBackStackEntry.destination.route}")
+    Log.d("checkBottomBarState act: ", Screens.ActivitiesScreen.route)
     when (navBackStackEntry.destination.route) {
         in bottomBarScreens -> {
+            bottomBarState.value = true
+        }
+
+        in screens -> {
             bottomBarState.value = true
         }
 
@@ -130,11 +140,8 @@ fun onClickBottomNavItem(navController: NavHostController, screen: BottomBarItem
             navController.popBackStack(Screens.ChatScreen.route, false)
         }
 
-        BottomBarItems.ControlPanel -> {
-            navController.popBackStack(
-                Screens.ControlPanelScreen.route,
-                false
-            )
+        BottomBarItems.Community -> {
+            navController.popBackStack(Screens.CommunityScreen.route, false)
         }
 
         BottomBarItems.Profile -> {

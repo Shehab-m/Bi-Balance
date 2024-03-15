@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.presentation.activites
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -10,8 +11,19 @@ import com.biBalance.myapplication.presentation.navigation.Screens
 
 private val ROUTE = Screens.ActivitiesScreen.route
 
-fun NavController.navigateToChallengesScreen(activitiesId:Int) {
+fun NavController.navigateToActivitiesScreen(activitiesId:Int) {
     navigate("$ROUTE/$activitiesId")
+}
+
+fun NavController.navigateToActivitiesScreenFromActivity(activitiesId: Int) {
+    navigate("$ROUTE/$activitiesId") {
+        launchSingleTop = true
+        popUpTo(ROUTE) {
+            inclusive = true
+        }
+    }
+
+    Log.d("navigateToActivitiesScreenFromActivity: ","runnnnnnnnnnnnn")
 }
 
 fun NavGraphBuilder.activitiesRoute() {

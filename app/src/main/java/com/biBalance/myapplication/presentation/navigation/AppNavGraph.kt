@@ -14,6 +14,8 @@ fun AppNavGraph(startDestination: String) {
         homeNavGraph()
         profileNavGraph()
         activitiesNavGraph()
+        communityNavGraph()
+        chatNavGraph()
     }
 }
 
@@ -21,7 +23,7 @@ object Graph {
     const val HOME = "home_graph"
     const val CHALLENGES = "challenges_graph"
     const val PROFILE = "profile_graph"
-    const val CONTROL_PANEL = "control_panel_graph"
+    const val COMMUNITY = "community"
     const val CHAT = "chat_graph"
     const val LOGIN = "login_graph"
     const val SIGNUP = "signup_graph"

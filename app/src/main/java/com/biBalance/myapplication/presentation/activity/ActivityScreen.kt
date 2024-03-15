@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
+import com.biBalance.myapplication.presentation.activites.navigateToActivitiesScreenFromActivity
 import com.biBalance.myapplication.presentation.activity.composable.ActivityContent
 import com.biBalance.myapplication.presentation.activity.composable.FinishScreen
 import com.biBalance.myapplication.presentation.activity.composable.StartScreen
@@ -47,6 +48,10 @@ fun ActivityScreen(viewModel: ActivityViewModel = hiltViewModel()) {
             is ActivityUIEffect.OnClickBack -> {
                 navController.navigateUp()
             }
+
+            ActivityUIEffect.GoToActivitiesScreen -> {
+                navController.navigateToActivitiesScreenFromActivity(state.activityStateId)
+            }
         }
     }
     ActivityScreenContent(state, viewModel)
@@ -55,26 +60,25 @@ fun ActivityScreen(viewModel: ActivityViewModel = hiltViewModel()) {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ActivityScreenContent(state: ActivityUIState, listener: ActivityInteractionListener) {
-    Scaffold { paddingValues ->
-        val backgroundColor = when (state.activityStateId){
-            1 -> LightGreen100
-            2 -> BlueMedium100
-            3 -> Beige100
-            4 -> LightPurple100
-            else -> GreyMedium100
-        }
-        val imageId = when (state.activityStateId){
-            1 -> R.drawable.character_physical
-            2 -> R.drawable.character_mental
-            3 -> R.drawable.character_emotional
-            4 -> R.drawable.character_social
-            else -> R.drawable.character_hi
-        }
-        val activityPainter = painterResource(id = imageId)
+    val backgroundColor = when (state.activityStateId){
+        1 -> LightGreen100
+        2 -> BlueMedium100
+        3 -> Beige100
+        4 -> LightPurple100
+        else -> GreyMedium100
+    }
+    val imageId = when (state.activityStateId){
+        1 -> R.drawable.character_physical
+        2 -> R.drawable.character_mental
+        3 -> R.drawable.character_emotional
+        4 -> R.drawable.character_social
+        else -> R.drawable.character_hi
+    }
+    val activityPainter = painterResource(id = imageId)
+    Scaffold(containerColor = backgroundColor) { paddingValues ->
         BiAnimationContent(
             state = state.isLoading,
             content = {
-//                Box(modifier = Modifier.fillMaxSize().background(backgroundColor)) {
                     StartScreen(
                         modifier = Modifier.background(backgroundColor).padding(paddingValues),
                         state = state.isStartScreenVisible && !state.isLoading,
@@ -84,12 +88,12 @@ fun ActivityScreenContent(state: ActivityUIState, listener: ActivityInteractionL
                     FinishScreen(
                         modifier = Modifier.background(backgroundColor).padding(paddingValues),
                         state = state.isFinishScreenVisible,
-                        title =  state.activityTitle,
+                        title =  "لقد احرزت تقدما رائع اليوم",
                         listener = listener
                     )
                     BiAnimationContent(
                         modifier = Modifier.background(backgroundColor).padding(paddingValues),
-                        state = state.isStartScreenVisible && state.isFinishScreenVisible && state.isLoading,
+                        state = state.isActivityContentVisible && state.isLoading,
                         topBar = {
                             Row(modifier = Modifier.padding(top = 20.dp, bottom = 24.dp)) {
                                 IconButton(onClick = { listener.onClickBack() }) {
@@ -123,7 +127,7 @@ fun ActivityScreenContent(state: ActivityUIState, listener: ActivityInteractionL
                                             painter = activityPainter,
                                             onClickNext = {
                                                 if (page == pagerState.pageCount -1){
-                                                    listener.onClickNextFinishScreen()
+                                                    listener.showFinishScreen()
                                                 } else {
                                                     coroutineScope.launch {
                                                         pagerState.scrollToPage(page+1)

@@ -1,7 +1,7 @@
 package com.biBalance.myapplication.presentation.activity.composable
 
 import android.annotation.SuppressLint
-import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -68,7 +68,7 @@ fun StartScreen(
 //                    style = MaterialTheme.typography.labelMedium,
 //                    color = OffWhite100,
 //                )
-                Icon(
+                Image(
                     painter = painterResource(id = R.drawable.character_hi),
                     contentDescription = "hi",
                     modifier = Modifier.size(350.dp).fillMaxWidth(),
@@ -79,7 +79,7 @@ fun StartScreen(
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextButton(onClick = { listener.onClickNextStartScreen() }) {
+                    TextButton(onClick = { listener.showActivityContent() }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 modifier = Modifier,

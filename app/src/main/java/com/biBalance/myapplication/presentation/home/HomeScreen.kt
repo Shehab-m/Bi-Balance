@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
-import com.biBalance.myapplication.presentation.activites.navigateToChallengesScreen
+import com.biBalance.myapplication.presentation.activites.navigateToActivitiesScreen
 import com.biBalance.myapplication.presentation.composables.AnimatedProgressBar
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiCardLevel
@@ -49,7 +49,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     EventHandler(viewModel.effect) { effect, navController ->
         when (effect) {
             is HomeUIEffect.OnClickLevel -> {
-                navController.navigateToChallengesScreen(effect.id)
+                navController.navigateToActivitiesScreen(effect.id)
             }
         }
     }
@@ -88,7 +88,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                         tint = MaterialTheme.colorScheme.primary,
                                     )
                                 }
-                                Row {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
                                         text = state.userName,
                                         style = MaterialTheme.typography.labelSmall,
@@ -122,7 +122,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                 )
                             }
                             AnimatedProgressBar(
-                                maxProgress = state.levels.count(),
+                                maxProgress = 32,
                                 currentProgress = state.totalScore,
                                 modifier = Modifier.fillMaxWidth(),
                             )
