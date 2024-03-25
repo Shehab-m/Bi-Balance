@@ -35,7 +35,7 @@ interface BiBalanceRepository {
         taskFour: String
     )
     suspend fun getTasksForDate(date: String): Tasks?
-    suspend fun getUserPosts(): List<UserPost>?
+    suspend fun getArticlePosts(): List<UserPost>?
     suspend fun likeUserPost(id: Int)
     suspend fun unlikeUserPost(id: Int)
     // ChatBot

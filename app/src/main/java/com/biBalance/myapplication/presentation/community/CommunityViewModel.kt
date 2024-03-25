@@ -63,7 +63,7 @@ class CommunityViewModel @Inject constructor(
     private fun getUserPosts() {
         updateState { it.copy(isLoadingPosts = true) }
         tryToExecute(
-            { repository.getUserPosts() },
+            { repository.getArticlePosts() },
             ::onGetUserPostsSuccess,
             ::onError
         )

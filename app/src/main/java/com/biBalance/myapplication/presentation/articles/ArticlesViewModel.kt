@@ -1,8 +1,8 @@
 package com.biBalance.myapplication.presentation.articles
 
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
-import com.biBalance.myapplication.data.source.remote.model.Level
 import com.biBalance.myapplication.data.source.remote.model.UserData
+import com.biBalance.myapplication.data.source.remote.model.UserPost
 import com.biBalance.myapplication.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
@@ -15,23 +15,23 @@ class ArticlesViewModel @Inject constructor(
     ArticlesInteractionListener {
 
     init {
-        getHomeLevels()
+        getArticles()
         getUserData()
     }
     override fun onClickBack() {
         sendEffect(ArticlesUIEffect.OnClickBack)
     }
 
-    private fun getHomeLevels(){
+    private fun getArticles(){
         tryToExecute(
-            {repository.getHomeLevels()},
-            ::onGetHomeLevelsSuccess,
+            {repository.getArticlePosts()},
+            ::onGetArticlesSuccess,
             ::onError
         )
     }
 
-    private fun onGetHomeLevelsSuccess(levels:List<Level>) {
-        updateState { it.copy(posts = levels, isLoadingLevels = false) }
+    private fun onGetArticlesSuccess(articles:List<UserPost>?) {
+        updateState { it.copy(posts = articles ?: emptyList(), isLoadingLevels = false) }
     }
 
     private fun getUserData(){

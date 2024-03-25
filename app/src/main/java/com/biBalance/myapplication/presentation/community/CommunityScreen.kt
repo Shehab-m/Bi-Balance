@@ -128,12 +128,6 @@ fun CommunityScreenContent(state: CommunityUIState, listener: CommunityInteracti
                             }
                         }
                     }
-//                    val posts = listOf(
-//                        Post(1, "Dr/Osama", "this is a post by doctor osama", 53),
-//                        Post(2, "Dr/Sara", "this is a post by doctor Sara", 32),
-//                        Post(3, "Dr/Shady", "this is a post by doctor Shady", 12),
-//                        Post(4, "Dr/Ali", "this is a post by doctor Ali", 2),
-//                    )
                     items(state.posts) { post ->
                         val postLikes = remember { mutableStateOf(post.likesCount) }
                         val isPostLiked = remember { mutableStateOf(false) }

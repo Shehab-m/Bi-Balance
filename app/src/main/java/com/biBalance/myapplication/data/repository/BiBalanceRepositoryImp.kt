@@ -120,7 +120,7 @@ class BiBalanceRepositoryImp @Inject constructor(
         return chatBotService.sendChat(ChatRequest(chat)).body()!!
     }
 
-    override suspend fun getUserPosts(): List<UserPost>? {
+    override suspend fun getArticlePosts(): List<UserPost>? {
         return wrap { biBalanceService.getUserPosts() }.data
     }
 

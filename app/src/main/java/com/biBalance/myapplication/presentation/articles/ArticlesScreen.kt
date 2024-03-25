@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
-import com.biBalance.myapplication.data.source.remote.model.Post
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiBackButton
 import com.biBalance.myapplication.presentation.composables.LoadingProgress
@@ -85,57 +84,7 @@ fun ArticlesScreenContent(state: ArticlesUIState, listener: ArticlesInteractionL
                     contentPadding = PaddingValues(bottom = 20.dp),
                     verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    val posts = listOf(
-                        Post(
-                            1,
-                            "Dr/Osama",
-                            "Maintain a regular schedule for sleeping and waking.",
-                            53
-                        ),
-                        Post(
-                            2,
-                            "Dr/Sara",
-                            "Engage in regular physical activity for at least 30 minutes daily.",
-                            32
-                        ),
-                        Post(
-                            3,
-                            "Dr/Shady",
-                            "Practice relaxation techniques such as deep breathing or meditation.",
-                            12
-                        ),
-                        Post(
-                            4,
-                            "Dr/Ali",
-                            "Stay connected with supportive friends and family members.",
-                            2
-                        ),
-                        Post(
-                            5,
-                            "Dr/Maya",
-                            "Keep a mood journal to track emotions and identify triggers.",
-                            25
-                        ),
-                        Post(
-                            6,
-                            "Dr/Ahmed",
-                            "Limit caffeine and alcohol consumption to stabilize mood.",
-                            40
-                        ),
-                        Post(
-                            7,
-                            "Dr/Layla",
-                            "Ensure a balanced diet rich in fruits, vegetables, and whole grains.",
-                            38
-                        ),
-                        Post(
-                            8,
-                            "Dr/Hassan",
-                            "Seek professional help if experiencing persistent mood swings or depressive episodes.",
-                            47
-                        )
-                    )
-                    items(posts) { post ->
+                    items(state.posts) { post ->
                         Card(
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(4.dp),
@@ -163,7 +112,7 @@ fun ArticlesScreenContent(state: ArticlesUIState, listener: ArticlesInteractionL
                                     )
                                 }
                                 Text(
-                                    text = post.writing,
+                                    text = post.name,
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = Color.Black,
                                     modifier = Modifier.padding(horizontal = 8.dp)
