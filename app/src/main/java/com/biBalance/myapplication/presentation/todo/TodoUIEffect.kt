@@ -4,4 +4,5 @@ import com.biBalance.myapplication.presentation.base.BaseUiEffect
 
 sealed class TodoUIEffect: BaseUiEffect {
     object OnClickBack: TodoUIEffect()
+    object OnClickSaveTasks: TodoUIEffect()
 }

@@ -1,10 +1,10 @@
 package com.biBalance.myapplication.presentation.home
 
+import android.util.Log
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
 import com.biBalance.myapplication.data.source.remote.model.Level
 import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.presentation.base.BaseViewModel
-import com.biBalance.myapplication.util.ErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
@@ -23,7 +23,8 @@ class HomeViewModel @Inject constructor(
         sendEffect(HomeUIEffect.OnClickLevel(levelId))
     }
 
-    private fun getHomeLevels(){
+    override fun getHomeLevels(){
+        Log.d("HomeScreen: ", "viewModel.getHomeLevels()")
         tryToExecute(
             {repository.getHomeLevels()},
             ::onGetHomeLevelsSuccess,
@@ -35,7 +36,7 @@ class HomeViewModel @Inject constructor(
         updateState { it.copy(levels = levels, isLoadingLevels = false) }
     }
 
-    private fun getUserData(){
+    override fun getUserData(){
         tryToExecute(
             {repository.getUserData()},
             ::onGetUserDataSuccess,
@@ -48,7 +49,7 @@ class HomeViewModel @Inject constructor(
             it.copy(userName = userData.username, totalScore = userData.totalScore ,isLoadingUserData = false)
         }
     }
-    private fun onError(error: ErrorHandler) {
+    private fun onError(error: Exception) {
         _state.update { it.copy(isLoadingLevels = false, isLoadingUserData = false, isError = true, error = error,) }
     }
 

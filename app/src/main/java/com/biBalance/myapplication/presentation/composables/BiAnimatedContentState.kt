@@ -6,7 +6,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -15,6 +15,7 @@ fun BiAnimatedContentState(
     state: Boolean,
     modifier: Modifier = Modifier,
     loadingContent: @Composable () -> Unit = {},
+    topBar: @Composable () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     AnimatedVisibility(
@@ -23,7 +24,8 @@ fun BiAnimatedContentState(
         enter = fadeIn(animationSpec = tween(durationMillis = 500)) + slideInHorizontally(),
     ) {
         if (state) {
-            Box(modifier = modifier) {
+            Column(modifier = modifier) {
+                topBar()
                 content()
             }
         } else {

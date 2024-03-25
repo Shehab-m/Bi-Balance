@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 @Composable
 fun AppNavGraph(startDestination: String) {
     val navController = LocalNavigationProvider.current
+
     NavHost(
         navController = navController,
         startDestination = startDestination

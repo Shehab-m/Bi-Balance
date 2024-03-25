@@ -15,16 +15,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -42,9 +42,11 @@ import com.biBalance.myapplication.ui.theme.Beige100
 import com.biBalance.myapplication.ui.theme.LightBlue100
 import com.biBalance.myapplication.ui.theme.LightGreen100
 import com.biBalance.myapplication.ui.theme.LightPurple100
+import com.biBalance.myapplication.util.roundToNearestHalf
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+    val lifecycleOwner = LocalLifecycleOwner.current
     val state by viewModel.state.collectAsState()
     EventHandler(viewModel.effect) { effect, navController ->
         when (effect) {
@@ -52,6 +54,10 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 navController.navigateToActivitiesScreen(effect.id)
             }
         }
+    }
+    LaunchedEffect(lifecycleOwner) {
+        viewModel.getUserData()
+        viewModel.getHomeLevels()
     }
     HomeScreenContent(state, viewModel)
 }
@@ -65,8 +71,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
             state = state.isLoading,
             content = {
                 LazyVerticalGrid(
-                    modifier = Modifier
-                        .fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                         .padding(start = 20.dp, end = 20.dp, top = 20.dp),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -79,15 +84,8 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                     .fillMaxWidth()
                                     .padding(top = 20.dp, bottom = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                horizontalArrangement = Arrangement.End
                             ) {
-                                IconButton(modifier = Modifier.size(24.dp), onClick = { }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.notification),
-                                        contentDescription = "notification",
-                                        tint = MaterialTheme.colorScheme.primary,
-                                    )
-                                }
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
                                         text = state.userName,
@@ -109,7 +107,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "${state.totalScore}%",
+                                    text = "${(state.totalScore.toDouble() / 36f).roundToNearestHalf()}%",
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.primary
@@ -157,7 +155,7 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                             title = level.name,
                             backgroundColor = selectedColor,
                             onClick = { listener.onClickLevel(level.id) },
-                            isActive = level.status[0].unlocked == 1,
+                            isActive = level.status[0].unlocked,
                             score = level.status[0].score
                         )
                     }

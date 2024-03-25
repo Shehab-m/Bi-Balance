@@ -1,12 +1,12 @@
 package com.biBalance.myapplication.presentation.community
 
+import androidx.lifecycle.viewModelScope
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
-import com.biBalance.myapplication.data.source.remote.model.Level
-import com.biBalance.myapplication.data.source.remote.model.UserData
+import com.biBalance.myapplication.data.source.remote.model.UserPost
 import com.biBalance.myapplication.presentation.base.BaseViewModel
-import com.biBalance.myapplication.util.ErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,40 +16,74 @@ class CommunityViewModel @Inject constructor(
     CommunityInteractionListener {
 
     init {
-        getHomeLevels()
-        getUserData()
-    }
-    override fun onClickLike(postId: Int) {
-        sendEffect(CommunityUIEffect.OnClickLevel(postId))
+        getUserPosts()
     }
 
-    private fun getHomeLevels(){
-        tryToExecute(
-            {repository.getHomeLevels()},
-            ::onGetHomeLevelsSuccess,
-            ::onError
-        )
+    override fun onClickAddWriting() {
+
+        _state.update { it.copy(isWritingScreenVisible = true, writings = "") }
     }
 
-    private fun onGetHomeLevelsSuccess(levels:List<Level>) {
-        updateState { it.copy(posts = levels, isLoadingLevels = false) }
+    override fun onClickBackFromWriting() {
+        _state.update { it.copy(isWritingScreenVisible = false) }
     }
 
-    private fun getUserData(){
-        tryToExecute(
-            {repository.getUserData()},
-            ::onGetUserDataSuccess,
-            ::onError
-        )
+    override fun onWritingsInputChange(text: String) {
+        _state.update { it.copy(writings = text) }
     }
 
-    private fun onGetUserDataSuccess(userData:UserData) {
-        updateState {
-            it.copy(userName = userData.username, totalScore = userData.totalScore ,isLoadingUserData = false)
+    override fun onClickSaveWriting() {
+        _state.update { it.copy(isWritingScreenVisible = false) }
+        viewModelScope.launch {
+            repository.savePost(_state.value.writings.ifEmpty { "" })
+        }
+        getUserPosts()
+    }
+
+    override fun onClickPostLike(postId: Int, isLiked: Boolean) {
+        if (isLiked) {
+            onClickUnLike(postId)
+        } else {
+            onClickLike(postId)
         }
     }
-    private fun onError(error: ErrorHandler) {
-        _state.update { it.copy(isLoadingLevels = false, isLoadingUserData = false, isError = true, error = error,) }
+
+    private fun onClickLike(postId: Int) {
+        viewModelScope.launch {
+            repository.likeUserPost(postId)
+        }
+    }
+
+    private fun onClickUnLike(postId: Int) {
+        viewModelScope.launch {
+            repository.unlikeUserPost(postId)
+        }
+    }
+
+    private fun getUserPosts() {
+        updateState { it.copy(isLoadingPosts = true) }
+        tryToExecute(
+            { repository.getUserPosts() },
+            ::onGetUserPostsSuccess,
+            ::onError
+        )
+    }
+
+    private fun onGetUserPostsSuccess(userPosts: List<UserPost>?) {
+        updateState {
+            it.copy(posts = userPosts ?: emptyList(), isLoadingPosts = false)
+        }
+    }
+
+    private fun onError(error: Exception) {
+        _state.update {
+            it.copy(
+                isLoadingPosts = false,
+                isLoadingUserData = false,
+                isError = true,
+                error = error,
+            )
+        }
     }
 
 }

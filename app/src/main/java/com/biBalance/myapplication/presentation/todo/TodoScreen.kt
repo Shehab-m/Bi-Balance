@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -15,8 +16,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -55,6 +59,10 @@ fun TodoScreen(viewModel: TodoViewModel = hiltViewModel()) {
     EventHandler(viewModel.effect) { effect, navController ->
         when (effect) {
             is TodoUIEffect.OnClickBack -> {
+                navController.navigateUp()
+            }
+
+            TodoUIEffect.OnClickSaveTasks -> {
                 navController.navigateUp()
             }
         }
@@ -260,6 +268,25 @@ fun TodoContent(
                         },
                         placeHolder = "Write your goal here"
                     )
+
+                    Button(
+                        modifier = Modifier.fillMaxWidth().height(64.dp),
+                        onClick = listener::onClickSaveTasks,
+                        shape =  RoundedCornerShape(4.dp),
+                        enabled = true
+                    ) {
+                        if (state.isLoading) {
+                            CircularProgressIndicator(modifier = Modifier.size(30.dp),
+                                color = MaterialTheme.colorScheme.primary, strokeWidth = 3.dp)
+                        } else {
+                            Text(
+                                text = "Save Tasks",
+                                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.background),
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                    }
                 }
             },
             loadingContent = { Loading(state = state.isLoading) }

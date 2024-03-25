@@ -3,7 +3,6 @@ package com.biBalance.myapplication.presentation.authentication.login
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
 import com.biBalance.myapplication.domain.useCase.ValidateAuthFieldsUseCase
 import com.biBalance.myapplication.presentation.base.BaseViewModel
-import com.biBalance.myapplication.util.ErrorHandler
 import com.biBalance.myapplication.util.StringDictionary
 import com.biBalance.myapplication.util.ValidationState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,7 +40,7 @@ class LoginViewModel @Inject constructor(
                 password = state.value.passwordState.value
             )
         } else {
-            _state.update { it.copy(isButtonEnabled = true,isLoading = false) }
+            _state.update { it.copy(isButtonEnabled = true, isLoading = false) }
             showValidationToast(stringResource.requiredFieldsMessageString)
         }
     }
@@ -60,8 +59,8 @@ class LoginViewModel @Inject constructor(
         sendEffect(LoginUiEffect.ClickLoginEffect)
     }
 
-    private fun onError(error: ErrorHandler) {
-        val errorMessage = stringResource.errorString.getOrDefault(error, "")
+    private fun onError(error: Exception) {
+        val errorMessage = error
         _state.update {
             it.copy(
                 isLoading = false,
@@ -72,7 +71,7 @@ class LoginViewModel @Inject constructor(
                 passwordState = _state.value.passwordState.copy(errorMessage = " ")
             )
         }
-        showValidationToast(message = errorMessage)
+        showValidationToast(message = errorMessage.message ?: "")
     }
 
 

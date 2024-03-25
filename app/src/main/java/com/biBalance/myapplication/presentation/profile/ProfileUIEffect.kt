@@ -8,4 +8,5 @@ sealed class ProfileUIEffect: BaseUiEffect {
     object OnClickWritings: ProfileUIEffect()
     object OnClickTodo: ProfileUIEffect()
     object OnClickPassword: ProfileUIEffect()
+    object OnClickArticles: ProfileUIEffect()
 }

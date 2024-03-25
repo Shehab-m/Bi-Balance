@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.password
+package com.biBalance.myapplication.presentation.authentication.password
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -43,7 +43,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiTextField
-import com.biBalance.myapplication.presentation.composables.Loading
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
 
 @Composable
@@ -58,6 +57,11 @@ fun PasswordScreen(viewModel: PasswordViewModel = hiltViewModel()) {
             PasswordUIEffect.ShowToastEffect -> {
                 Log.d( "checkIfUserLoggedIn: ", "toast")
                 Toast.makeText(context, state.validationToast.message, Toast.LENGTH_SHORT).show()
+            }
+
+            PasswordUIEffect.ClickChangePasswordEffect -> {
+                Toast.makeText(context, "Password changed successfully", Toast.LENGTH_SHORT).show()
+                navController.navigateUp()
             }
         }
     }
@@ -74,7 +78,7 @@ fun PasswordContent(
     val focusManager = LocalFocusManager.current
     Scaffold() { paddingValues ->
         BiAnimationContent(
-            state = state.isLoading,
+            state = false,
             topBar = {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(paddingValues),
@@ -222,7 +226,7 @@ fun PasswordContent(
                         val passwordIcon =
                             if (showPassword) R.drawable.eye else R.drawable.closeeye
                         BiTextField(
-                            value = state.renewPasswordState.value,
+                            value = state.confirmationPasswordState.value,
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Password,
                                 imeAction = ImeAction.Done
@@ -231,8 +235,8 @@ fun PasswordContent(
                                 onNext = { focusManager.moveFocus(FocusDirection.Next) },
                                 onDone = { keyboardController?.hide() }
                             ),
-                            onValueChange = listener::onRenewPasswordInputChanged,
-                            errorMessage = state.renewPasswordState.errorMessage,
+                            onValueChange = listener::onConfirmationPasswordInputChanged,
+                            errorMessage = state.confirmationPasswordState.errorMessage,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 8.dp, bottom = 16.dp),
@@ -253,7 +257,7 @@ fun PasswordContent(
                         shape =  RoundedCornerShape(4.dp),
                         enabled = state.isButtonEnabled
                     ) {
-                        if (state.isLoading) {
+                        if (state.isButtonLoading) {
                             CircularProgressIndicator(modifier = Modifier.size(30.dp),
                                 color = MaterialTheme.colorScheme.primary, strokeWidth = 3.dp)
                         } else {
@@ -268,7 +272,7 @@ fun PasswordContent(
                 }
 
             },
-            loadingContent = { Loading(state = state.isLoading) }
+            loadingContent = {  }
         )
     }
 

@@ -8,4 +8,5 @@ interface TodoInteractionListener: BaseInteractionListener {
     fun onActivityChange(text: String)
     fun onEventInputChange(text: String)
     fun onMedsInputChange(text: String)
+    fun onClickSaveTasks()
 }

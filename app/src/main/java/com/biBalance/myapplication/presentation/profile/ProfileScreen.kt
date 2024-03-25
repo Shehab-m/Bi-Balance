@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,28 +27,35 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
+import com.biBalance.myapplication.presentation.articles.navigateToArticlesScreen
 import com.biBalance.myapplication.presentation.authentication.login.navigateToLogin
+import com.biBalance.myapplication.presentation.authentication.password.navigateToPasswordScreen
 import com.biBalance.myapplication.presentation.composables.AnimatedProgressBarCircular
 import com.biBalance.myapplication.presentation.composables.BiAlertDialog
 import com.biBalance.myapplication.presentation.composables.BiAnimatedContentState
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.Loading
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
-import com.biBalance.myapplication.presentation.password.navigateToPasswordScreen
 import com.biBalance.myapplication.presentation.profileActivities.navigateToProfileActivitiesScreen
 import com.biBalance.myapplication.presentation.todo.navigateToTodoScreen
 import com.biBalance.myapplication.presentation.writings.navigateToWritingsScreen
 import com.biBalance.myapplication.ui.theme.Bink100
+import com.biBalance.myapplication.util.roundToNearestHalf
 
 @Composable
 fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
+    val lifecycleOwner = LocalLifecycleOwner.current
     val state by viewModel.state.collectAsState()
+    LaunchedEffect(lifecycleOwner) {
+        viewModel.getUserData()
+    }
     EventHandler(viewModel.effect) { effect, navController ->
         when (effect) {
             is ProfileUIEffect.OnClickLogout -> {
@@ -68,6 +76,10 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
 
             ProfileUIEffect.OnClickPassword -> {
                 navController.navigateToPasswordScreen()
+            }
+
+            ProfileUIEffect.OnClickArticles -> {
+                navController.navigateToArticlesScreen()
             }
         }
     }
@@ -114,7 +126,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                             )
                         }
                         Text(
-                            text = "You have completed ${state.userData.totalScore / 32}%",
+                            text = "You have completed ${(state.userData.totalScore.toDouble() / 36f).roundToNearestHalf()}%",
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.primary,
@@ -175,6 +187,21 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                             )
                             Text(
                                 text = "Your Writings",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.padding(horizontal = 16.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.padding(vertical = 16.dp))
+                        Row(modifier = Modifier.clickable { listener.onClickArticles() }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.article),
+                                contentDescription = "vector",
+                                Modifier.size(32.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = "Doctors Articles",
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(horizontal = 16.dp)

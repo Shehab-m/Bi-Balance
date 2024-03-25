@@ -7,7 +7,7 @@ import com.biBalance.myapplication.presentation.navigation.Screens
 
 private val ROUTE = Screens.ProfileScreen.route
 
-fun NavController.navigateToHomeScreen() {
+fun NavController.navigateToProfileScreen() {
     navigate(ROUTE)
 }
 

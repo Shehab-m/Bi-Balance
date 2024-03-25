@@ -3,15 +3,6 @@ package com.biBalance.myapplication.presentation.base
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.biBalance.myapplication.util.ErrorHandler
-import com.biBalance.myapplication.util.GeneralException
-import com.biBalance.myapplication.util.NetworkException
-import com.biBalance.myapplication.util.TokenException
-import com.biBalance.myapplication.util.UserException
-import com.biBalance.myapplication.util.handelGeneralException
-import com.biBalance.myapplication.util.handelNetworkException
-import com.biBalance.myapplication.util.handelTokenException
-import com.biBalance.myapplication.util.handelUserException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +20,6 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
-import java.io.IOException
 
 abstract class BaseViewModel<S, E>(initialState: S) : ViewModel(), BaseInteractionListener {
 
@@ -42,7 +32,7 @@ abstract class BaseViewModel<S, E>(initialState: S) : ViewModel(), BaseInteracti
     protected fun <T> tryToExecute(
         function: suspend () -> T,
         onSuccess: (T) -> Unit,
-        onError: (t: ErrorHandler) -> Unit,
+        onError: (t: Exception) -> Unit,
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
     ) {
         viewModelScope.launch(dispatcher) {
@@ -57,21 +47,14 @@ abstract class BaseViewModel<S, E>(initialState: S) : ViewModel(), BaseInteracti
     }
 
     private suspend fun <T> handleException(
-        onError: (t: ErrorHandler) -> Unit,
+        onError: (t: Exception) -> Unit,
         action: suspend () -> T
     ) {
         try {
             action()
         } catch (exception: Exception) {
             Log.d("tryToExecute error:"," $exception")
-            when (exception) {
-                is UserException -> handelUserException(exception, onError)
-                is GeneralException -> handelGeneralException(exception, onError)
-                is TokenException -> handelTokenException(exception, onError)
-                is NetworkException -> handelNetworkException(exception, onError)
-                is IOException -> onError(ErrorHandler.NoConnection)
-                else -> onError(ErrorHandler.InvalidData)
-            }
+            onError(Exception(exception.message ?: "Unknown error"))
         }
     }
 

@@ -81,7 +81,7 @@ fun ProfileActivitiesContent(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                     )
-                    IconButton(onClick = {  }, modifier = Modifier) {
+                    IconButton(onClick = { }, modifier = Modifier) {
                         Icon(
                             painter = painterResource(id = R.drawable.arrow_left),
                             contentDescription = "icon play",
@@ -99,34 +99,38 @@ fun ProfileActivitiesContent(
                             .padding(start = 55.dp, bottom = 16.dp, top = 0.dp),
                         tint = LightGrey100
                     )
+                    val totalScore =
+                        state.scores.physicalScore + state.scores.mentalScore + state.scores.socialScore + state.scores.emotionalScore
                     Text(
-                        text = "You have finished 1 Activity to get better and improve",
+                        text = "You have finished $totalScore Activity to get better and improve",
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.fillMaxWidth().padding(top = 32.dp, end = 20.dp, start = 20.dp),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = 32.dp, end = 20.dp, start = 20.dp),
                         textAlign = TextAlign.Center
                     )
                 }
                 val activities = listOf(
-                    LevelActivities.LevelActivity(1, "1 Physical"),
-                    LevelActivities.LevelActivity(2, "0 Mental"),
-                    LevelActivities.LevelActivity(1, "0 Emotional"),
-                    LevelActivities.LevelActivity(1, "0 Social"),
+                    LevelActivities.LevelActivity(1, "${state.scores.physicalScore} Physical"),
+                    LevelActivities.LevelActivity(2, "${state.scores.mentalScore} Mental"),
+                    LevelActivities.LevelActivity(3, "${state.scores.emotionalScore} Emotional"),
+                    LevelActivities.LevelActivity(4, "${state.scores.socialScore} Social"),
                 )
                 LazyVerticalGrid(
-                    modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                    modifier = Modifier.fillMaxSize()
+                        .padding(start = 20.dp, end = 20.dp, top = 20.dp),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ){
+                ) {
                     itemsIndexed(activities) { index, activity ->
-                        val colors = listOf(LightGreen100,LightBlue100, Beige100, LightPurple100)
+                        val colors = listOf(LightGreen100, LightBlue100, Beige100, LightPurple100)
                         val colorIndex = (index % colors.size)
                         val selectedColor = colors[colorIndex]
                         BiCardActivity(
                             modifier = Modifier.padding(top = 16.dp),
                             title = activity.typeName,
                             backgroundColor = selectedColor,
-                            onClick = {  },
+                            onClick = { },
                         )
                     }
                 }

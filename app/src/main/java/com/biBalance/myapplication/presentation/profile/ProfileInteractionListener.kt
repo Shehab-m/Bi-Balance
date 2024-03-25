@@ -8,4 +8,6 @@ interface ProfileInteractionListener: BaseInteractionListener {
     fun onClickWritings()
     fun onClickPassword()
     fun onClickTodo()
+    fun getUserData()
+    fun onClickArticles()
 }

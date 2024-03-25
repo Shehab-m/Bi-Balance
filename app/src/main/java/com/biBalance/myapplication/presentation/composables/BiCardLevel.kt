@@ -86,7 +86,7 @@ fun BiCardLevel(
                                 animationSpec = tween(1000, easing = LinearEasing),
                                 label = "progress"
                             )
-                            LaunchedEffect(key1 = true) {
+                            LaunchedEffect(key1 = score) {
                                 percentage = if (score >0 ) score.toFloat() / 4f * 100f else 0f
                             }
                             Text(

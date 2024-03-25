@@ -34,7 +34,6 @@ import com.biBalance.myapplication.presentation.composables.LoadingProgress
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
 import com.biBalance.myapplication.ui.theme.Beige100
 import com.biBalance.myapplication.ui.theme.BlueMedium100
-import com.biBalance.myapplication.ui.theme.GreyMedium100
 import com.biBalance.myapplication.ui.theme.LightGreen100
 import com.biBalance.myapplication.ui.theme.LightPurple100
 import com.biBalance.myapplication.ui.theme.White100
@@ -65,7 +64,7 @@ fun ActivityScreenContent(state: ActivityUIState, listener: ActivityInteractionL
         2 -> BlueMedium100
         3 -> Beige100
         4 -> LightPurple100
-        else -> GreyMedium100
+        else -> LightPurple100
     }
     val imageId = when (state.activityStateId){
         1 -> R.drawable.character_physical

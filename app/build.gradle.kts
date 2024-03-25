@@ -121,4 +121,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+    //kotlin datetime
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+
 }

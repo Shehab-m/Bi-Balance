@@ -3,7 +3,6 @@ package com.biBalance.myapplication.presentation.authentication.login
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,13 +37,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
@@ -208,22 +205,22 @@ fun LoginContent(
                            )
                        }
                    }
-                   Row(verticalAlignment = Alignment.CenterVertically) {
-                       Text(
-                           text = stringResource(R.string.dont_have_account),
-                           style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
-                           textAlign = TextAlign.Center,
-                       )
-                       Text(
-                           text = stringResource(R.string.create_account),
-                           style = MaterialTheme.typography.bodyMedium.copy(
-                               color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.W700
-                           ),
-                           textDecoration = TextDecoration.Underline,
-                           textAlign = TextAlign.Center,
-                           modifier = Modifier.clickable { listener.onClickSignup() }
-                       )
-                   }
+//                   Row(verticalAlignment = Alignment.CenterVertically) {
+//                       Text(
+//                           text = stringResource(R.string.dont_have_account),
+//                           style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
+//                           textAlign = TextAlign.Center,
+//                       )
+//                       Text(
+//                           text = stringResource(R.string.create_account),
+//                           style = MaterialTheme.typography.bodyMedium.copy(
+//                               color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.W700
+//                           ),
+//                           textDecoration = TextDecoration.Underline,
+//                           textAlign = TextAlign.Center,
+//                           modifier = Modifier.clickable { listener.onClickSignup() }
+//                       )
+//                   }
                }
            }
        },

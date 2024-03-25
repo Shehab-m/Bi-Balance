@@ -5,7 +5,6 @@ import com.biBalance.myapplication.data.repository.BiBalanceRepository
 import com.biBalance.myapplication.data.source.remote.model.LevelActivities
 import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.presentation.base.BaseViewModel
-import com.biBalance.myapplication.util.ErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
@@ -28,12 +27,16 @@ class ActivitiesViewModel @Inject constructor(
         sendEffect(ActivitiesUIEffect.OnClickActivity(levelId))
     }
 
-    private fun getUserData() {
+    override fun getUserData() {
         tryToExecute(
             { repository.getUserData() },
             ::onGetUserDataSuccess,
             ::onError
         )
+    }
+
+    override fun onClickBack() {
+        sendEffect(ActivitiesUIEffect.OnClickBack)
     }
 
     private fun onGetUserDataSuccess(userData: UserData) {
@@ -58,7 +61,7 @@ class ActivitiesViewModel @Inject constructor(
         updateState { it.copy(activities = activities, isLoadingActivities = false) }
     }
 
-    private fun onError(error: ErrorHandler) {
+    private fun onError(error: Exception) {
         _state.update { it.copy(isLoadingUserData = false,isLoadingActivities = false, isError = true, error = error) }
     }
 

@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.password
+package com.biBalance.myapplication.presentation.authentication.password
 
 import android.util.Log
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
@@ -19,10 +19,6 @@ class PasswordViewModel @Inject constructor(
 ) : BaseViewModel<PasswordUIState, PasswordUIEffect>(PasswordUIState()),
     PasswordInteractionListener {
 
-    init {
-        getUserData()
-    }
-
     override fun onClickBack() {
         sendEffect(PasswordUIEffect.OnClickBack)
     }
@@ -39,39 +35,88 @@ class PasswordViewModel @Inject constructor(
         }
     }
 
-    override fun onRenewPasswordInputChanged(password: CharSequence) {
+    private fun changePassword(
+        oldPassword: String,
+        newPassword: String,
+        newPasswordConfirmation: String
+    ) {
+        _state.update { it.copy(isButtonLoading = true) }
+        tryToExecute(
+            {
+                repository.changePassword(
+                    newPassword = newPassword,
+                    oldPassword = oldPassword,
+                    newPasswordConfirmation = newPasswordConfirmation
+                )
+            },
+            ::onChangePasswordSuccess,
+            ::onError,
+        )
+    }
+
+    private fun onChangePasswordSuccess(unit: Unit) {
+        sendEffect(PasswordUIEffect.ClickChangePasswordEffect)
+    }
+
+    override fun onConfirmationPasswordInputChanged(password: CharSequence) {
+        Log.d(
+            "onConfirmationPasswordInputChanged: ",
+            "$password ${_state.value.newPasswordState.value}"
+        )
         _state.update {
             it.copy(
-                renewPasswordState = FieldState(
+                confirmationPasswordState = FieldState(
                     value = password.toString(),
-                    errorMessage = if (password != _state.value.newPasswordState.value) "password doesn't match" else ""
-                )
+                    errorMessage = if (password != _state.value.newPasswordState.value) "password doesn't match" else "",
+                ),
             )
         }
+        _state.update { it.copy(isButtonEnabled = password.toString() == _state.value.newPasswordState.value) }
+    }
+
+    private fun onError(error: Exception) {
+        _state.update {
+            it.copy(
+                isButtonLoading = false,
+                isButtonEnabled = true,
+                oldPasswordState = _state.value.oldPasswordState.copy(errorMessage = " "),
+                newPasswordState = _state.value.newPasswordState.copy(errorMessage = " "),
+                confirmationPasswordState = _state.value.confirmationPasswordState.copy(errorMessage = " ")
+            )
+        }
+        showValidationToast(message = error.message ?: "Unknown error")
     }
 
     override fun onClickChangePassword() {
-        _state.update { it.copy(isButtonEnabled = false, isLoading = true) }
+        _state.update { it.copy(isButtonEnabled = false) }
         val oldPasswordFieldValidation =
             validationUseCase.validationPassword(_state.value.oldPasswordState.value)
         val newPasswordFieldValidation =
             validationUseCase.validationPassword(_state.value.newPasswordState.value)
         val renewPasswordFieldValidation =
-            validationUseCase.validationPassword(_state.value.renewPasswordState.value)
+            validationUseCase.validationPassword(_state.value.confirmationPasswordState.value)
         if (oldPasswordFieldValidation == ValidationState.VALID_PASSWORD
             && newPasswordFieldValidation == ValidationState.VALID_PASSWORD
             && renewPasswordFieldValidation == ValidationState.VALID_PASSWORD
         ) {
-            Log.d("onClickChangePassword: ",renewPasswordFieldValidation.toString())
             _state.update {
                 it.copy(
                     oldPasswordState = state.value.oldPasswordState.copy(errorMessage = ""),
                     newPasswordState = state.value.newPasswordState.copy(errorMessage = ""),
-                    renewPasswordState = state.value.renewPasswordState.copy(errorMessage = "")
+                    confirmationPasswordState = state.value.confirmationPasswordState.copy(
+                        errorMessage = ""
+                    ),
+                    isButtonEnabled = false,
+                    isButtonLoading = true
                 )
             }
+            changePassword(
+                _state.value.oldPasswordState.value,
+                _state.value.newPasswordState.value,
+                _state.value.confirmationPasswordState.value,
+            )
         } else {
-            _state.update { it.copy(isButtonEnabled = true, isLoading = false) }
+            _state.update { it.copy(isButtonEnabled = true, isButtonLoading = false) }
             showValidationToast(stringResource.requiredFieldsMessageString)
         }
     }
@@ -83,13 +128,10 @@ class PasswordViewModel @Inject constructor(
                     isShow = true,
                     message = message
                 ),
-                isLoading = false
+                isButtonLoading = false
             )
         }
         sendEffect(PasswordUIEffect.ShowToastEffect)
     }
-    private fun getUserData() {
-    }
-
 
 }

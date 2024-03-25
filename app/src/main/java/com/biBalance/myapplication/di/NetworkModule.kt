@@ -2,7 +2,8 @@ package com.biBalance.myapplication.di
 
 import com.biBalance.myapplication.data.source.local.AuthPreferences
 import com.biBalance.myapplication.data.source.remote.AuthInterceptor
-import com.biBalance.myapplication.data.source.remote.BiBalanceApiService
+import com.biBalance.myapplication.data.source.remote.service.BiBalanceApiService
+import com.biBalance.myapplication.data.source.remote.service.ChatBotApiService
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -18,23 +19,46 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Singleton
-    @Provides
-    fun provideRetrofitService(retrofit: Retrofit): BiBalanceApiService {
-        return retrofit.create(BiBalanceApiService::class.java)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideRetrofitService(retrofit: Retrofit): BiBalanceApiService {
+//        return retrofit.create(BiBalanceApiService::class.java)
+//    }
+
+//    @Singleton
+//    @Provides
+//    fun provideRetrofitChatBotService(
+//        retrofit: Retrofit
+//    ): ChatBotApiService {
+//        return retrofit.create(ChatBotApiService::class.java)
+//    }
 
     @Singleton
     @Provides
-    fun provideRetrofitBuilder(
+    fun provideMainRetrofitService(
         client: OkHttpClient,
         factory: GsonConverterFactory
-    ): Retrofit {
+    ): BiBalanceApiService {
         return Retrofit.Builder()
             .baseUrl(AuthInterceptor.BASE_URL)
             .client(client)
             .addConverterFactory(factory)
             .build()
+            .create(BiBalanceApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideChatBotRetrofitService(
+        client: OkHttpClient,
+        factory: GsonConverterFactory
+    ): ChatBotApiService {
+        return Retrofit.Builder()
+            .baseUrl(AuthInterceptor.CHAT_BASE_URL)
+            .client(client)
+            .addConverterFactory(factory)
+            .build()
+            .create(ChatBotApiService::class.java)
     }
 
     @Singleton
@@ -49,7 +73,6 @@ object NetworkModule {
             .addInterceptor(authInterceptor)
             .build()
     }
-
 
     @Singleton
     @Provides

@@ -1,4 +1,4 @@
-package com.biBalance.myapplication.presentation.password
+package com.biBalance.myapplication.presentation.authentication.password
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

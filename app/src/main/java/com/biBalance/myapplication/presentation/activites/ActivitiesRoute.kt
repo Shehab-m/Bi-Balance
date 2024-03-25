@@ -15,8 +15,20 @@ fun NavController.navigateToActivitiesScreen(activitiesId:Int) {
     navigate("$ROUTE/$activitiesId")
 }
 
+//fun NavController.navigateToActivitiesScreenFromActivity(activitiesId: Int) {
+//    navigate("$ROUTE/$activitiesId") {
+//        launchSingleTop = true
+//        popUpTo(ROUTE) {
+//            inclusive = true
+//        }
+//    }
+//
+//    Log.d("navigateToActivitiesScreenFromActivity: ","runnnnnnnnnnnnn")
+//}
 fun NavController.navigateToActivitiesScreenFromActivity(activitiesId: Int) {
-    navigate("$ROUTE/$activitiesId") {
+    val routeWithId = "$ROUTE/$activitiesId"
+
+    navigate(routeWithId) {
         launchSingleTop = true
         popUpTo(ROUTE) {
             inclusive = true
@@ -25,7 +37,6 @@ fun NavController.navigateToActivitiesScreenFromActivity(activitiesId: Int) {
 
     Log.d("navigateToActivitiesScreenFromActivity: ","runnnnnnnnnnnnn")
 }
-
 fun NavGraphBuilder.activitiesRoute() {
     composable(
         route = "$ROUTE/{${ActivitiesArgs.ACTIVITIES_ID}}",

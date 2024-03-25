@@ -1,10 +1,9 @@
 package com.biBalance.myapplication.presentation.chat
 
+import android.util.Log
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
-import com.biBalance.myapplication.data.source.remote.model.Level
-import com.biBalance.myapplication.data.source.remote.model.UserData
+import com.biBalance.myapplication.data.source.remote.model.ChatBotResponse
 import com.biBalance.myapplication.presentation.base.BaseViewModel
-import com.biBalance.myapplication.util.ErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
@@ -12,44 +11,47 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val repository: BiBalanceRepository
-) : BaseViewModel<ChatUIState, ChatUIEffect>(ChatUIState()),
-    ChatInteractionListener {
+) : BaseViewModel<ChatUIState, ChatUIEffect>(ChatUIState()), ChatInteractionListener {
 
     init {
-        getHomeLevels()
-        getUserData()
-    }
-    override fun onClickLike(postId: Int) {
-        sendEffect(ChatUIEffect.OnClickLevel(postId))
-    }
-
-    private fun getHomeLevels(){
         tryToExecute(
-            {repository.getHomeLevels()},
-            ::onGetHomeLevelsSuccess,
+            { repository.sendChat("اهلا") },
+            ::onGetChatResponse,
             ::onError
         )
     }
 
-    private fun onGetHomeLevelsSuccess(levels:List<Level>) {
-        updateState { it.copy(levels = levels, isLoadingLevels = false) }
+    override fun onWritingsInputChange(text: String) {
+        _state.update { it.copy(writing = text) }
     }
 
-    private fun getUserData(){
+    private fun getChatResponse() {
+        updateState { it.copy(isChatLoading = true) }
+        Log.d("getChatResponse3:", _state.value.writing)
         tryToExecute(
-            {repository.getUserData()},
-            ::onGetUserDataSuccess,
+            { repository.sendChat(_state.value.writing) },
+            ::onGetChatResponse,
             ::onError
         )
     }
 
-    private fun onGetUserDataSuccess(userData:UserData) {
-        updateState {
-            it.copy(userName = userData.username, totalScore = userData.totalScore ,isLoadingUserData = false)
+    private fun onGetChatResponse(chat: ChatBotResponse) {
+        updateState { it.copy(chatResponse = chat, isLoading = false,isChatLoading = false, writing = "") }
+    }
+
+    private fun onError(error: Exception) {
+        _state.update {
+            it.copy(
+                isLoading = false,
+                isChatLoading = false,
+                isError = true,
+                error = error,
+            )
         }
     }
-    private fun onError(error: ErrorHandler) {
-        _state.update { it.copy(isLoadingLevels = false, isLoadingUserData = false, isError = true, error = error,) }
+
+    override fun onClickSend() {
+        getChatResponse()
     }
 
 }

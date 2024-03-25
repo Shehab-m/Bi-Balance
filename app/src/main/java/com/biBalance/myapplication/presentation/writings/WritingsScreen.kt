@@ -1,8 +1,12 @@
 package com.biBalance.myapplication.presentation.writings
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,10 +14,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -24,13 +29,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
+import com.biBalance.myapplication.presentation.composables.BiAnimatedContentState
 import com.biBalance.myapplication.presentation.composables.BiAnimatedFab
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
+import com.biBalance.myapplication.presentation.composables.BiTextField
 import com.biBalance.myapplication.presentation.composables.Loading
 import com.biBalance.myapplication.presentation.composables.exitinstion.EventHandler
 import com.biBalance.myapplication.ui.theme.BlueBlack100
@@ -57,11 +65,26 @@ fun WritingsContent(
 ) {
     Scaffold(
         floatingActionButton = {
-            BiAnimatedFab(state = true, onClick = {},)
+            BiAnimatedFab(state = !state.isWritingScreenVisible, onClick = {listener.onClickAddWriting()})
+            AnimatedVisibility(visible = state.isWritingScreenVisible, enter = scaleIn(), exit = scaleOut(),) {
+                FloatingActionButton(
+                    modifier = Modifier,
+                    shape = RoundedCornerShape(8.dp),
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    onClick = listener::onClickSaveWriting
+                ) {
+                    Text(
+                        text = "Save notes",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = White100,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+            }
         }
     ) { paddingValues ->
         BiAnimationContent(
-            state = state.isLoading,
+            state = state.isLoading || state.isWritingScreenVisible,
             topBar = {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(paddingValues),
@@ -98,12 +121,13 @@ fun WritingsContent(
                     "notes i am saving for to share with others",
                 )
                 LazyVerticalGrid(
-                    modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, top = 38.dp),
+                    modifier = Modifier.fillMaxSize()
+                        .padding(start = 20.dp, end = 20.dp, top = 38.dp),
                     columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    itemsIndexed(writings) { index, writing ->
+                    items(state.notes) { note ->
                         Card(
                             modifier = Modifier.size(width = 170.dp, height = 160.dp),
                             shape = RoundedCornerShape(4.dp),
@@ -112,7 +136,7 @@ fun WritingsContent(
                         ) {
                             Box(modifier = Modifier.fillMaxSize()) {
                                 Text(
-                                    text = writing,
+                                    text = note.notes,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = BlueBlack100,
                                     modifier = Modifier.padding(
@@ -128,7 +152,7 @@ fun WritingsContent(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(
-                                        text = "2023-3-10",
+                                        text = note.creationDate,
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier
@@ -146,6 +170,36 @@ fun WritingsContent(
                 }
             },
             loadingContent = { Loading(state = state.isLoading) }
+        )
+        BiAnimatedContentState(
+            state = state.isWritingScreenVisible,
+            topBar = {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(paddingValues),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    IconButton(onClick = { listener.onClickBackFromWriting() }, modifier = Modifier) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrow_left),
+                            contentDescription = "icon play",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            },
+            content = {
+                Column(Modifier.fillMaxSize()) {
+                    BiTextField(
+                        value = state.writings,
+                        onValueChange = listener::onWritingsInputChange,
+                        modifier = Modifier.fillMaxWidth().padding(20.dp),
+                        borderColor = Color.Transparent,
+                        placeHolder = "Write your notes here",
+                        singeLine = false
+                    )
+                }
+            },
+            loadingContent = { }
         )
     }
 

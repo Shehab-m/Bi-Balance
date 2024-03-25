@@ -1,11 +1,12 @@
 package com.biBalance.myapplication.presentation.profile
 
+import androidx.lifecycle.viewModelScope
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
 import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.presentation.base.BaseViewModel
-import com.biBalance.myapplication.util.ErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,6 +20,9 @@ class ProfileViewModel @Inject constructor(
     }
 
     override fun onClickLogout() {
+        viewModelScope.launch {
+            repository.logoutUser()
+        }
         sendEffect(ProfileUIEffect.OnClickLogout)
     }
 
@@ -38,12 +42,16 @@ class ProfileViewModel @Inject constructor(
         sendEffect(ProfileUIEffect.OnClickTodo)
     }
 
-    private fun getUserData() {
+    override fun getUserData() {
         tryToExecute(
             { repository.getUserData() },
             ::onGetUserDataSuccess,
             ::onError
         )
+    }
+
+    override fun onClickArticles() {
+        sendEffect(ProfileUIEffect.OnClickArticles)
     }
 
     private fun onGetUserDataSuccess(userData: UserData) {
@@ -52,7 +60,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private fun onError(error: ErrorHandler) {
+    private fun onError(error: Exception) {
         _state.update { it.copy(isLoading = false) }
     }
 }

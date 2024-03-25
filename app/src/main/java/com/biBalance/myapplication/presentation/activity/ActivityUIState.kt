@@ -1,11 +1,9 @@
 package com.biBalance.myapplication.presentation.activity
 
-import com.biBalance.myapplication.util.ErrorHandler
-
 data class ActivityUIState(
     val isLoading: Boolean = false,
     val isError: Boolean = false,
-    val error: ErrorHandler = ErrorHandler.NoConnection,
+    val error: Exception? = null,
     val isStartScreenVisible: Boolean = true,
     val isFinishScreenVisible: Boolean = false,
     val isActivityContentVisible: Boolean = false,
