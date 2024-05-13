@@ -20,5 +20,15 @@
     <string name="dont_have_account">ليس لديك حساب؟</string>
     <string name="create_account">انشاء حساب</string>
     <string name="please_fill_required_fields">الرجاء ملء الحقول المطلوبة</string>
+    <string name="progress">التقدم</string>
+    <string name="activities">التمارين</string>
+    <string name="todo_list">قائمة المهام</string>
+    <string name="password_text">كلمة المرور</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="doctors_articles">المجتمع الطبي</string>
+    <string name="your_writings">كتاباتك</string>
+    <string name="save_notes">حفظ</string>
+    <string name="next">التالي</string>
+    <string name="are_you_sure_to_log_out">هل تريد تسجيل الخروج؟</string>
 
 </resources>

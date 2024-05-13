@@ -64,6 +64,10 @@ fun ActivityScreenContent(state: ActivityUIState, listener: ActivityInteractionL
         2 -> BlueMedium100
         3 -> Beige100
         4 -> LightPurple100
+        5 -> LightGreen100
+        6 -> BlueMedium100
+        7 -> Beige100
+        8 -> LightPurple100
         else -> LightPurple100
     }
     val imageId = when (state.activityStateId){

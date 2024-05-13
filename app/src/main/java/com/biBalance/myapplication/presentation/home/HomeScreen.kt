@@ -42,7 +42,7 @@ import com.biBalance.myapplication.ui.theme.Beige100
 import com.biBalance.myapplication.ui.theme.LightBlue100
 import com.biBalance.myapplication.ui.theme.LightGreen100
 import com.biBalance.myapplication.ui.theme.LightPurple100
-import com.biBalance.myapplication.util.roundToNearestHalf
+import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
@@ -107,20 +107,20 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "${(state.totalScore.toDouble() / 36f).roundToNearestHalf()}%",
+                                    text = "${(state.totalScore.toDouble() / 4f).roundToInt()}%",
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 Text(
-                                    text = "Progress",
+                                    text = stringResource(R.string.progress),
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.primary
                                 )
                             }
                             AnimatedProgressBar(
-                                maxProgress = 32,
+                                maxProgress = 128,
                                 currentProgress = state.totalScore,
                                 modifier = Modifier.fillMaxWidth(),
                             )

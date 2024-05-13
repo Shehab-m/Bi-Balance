@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -58,18 +59,18 @@ fun ActivityContent(
             ) {
                 TextButton(onClick = onClickNext) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            modifier = Modifier,
-                            text = "Next",
-                            textDecoration = TextDecoration.Underline,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.labelLarge,
-                            color = White100,
-                        )
                         Icon(
                             painter = painterResource(id = R.drawable.arrow_right),
                             contentDescription = "icon play",
                             tint = White100, modifier = Modifier.padding(top = 8.dp)
+                        )
+                        Text(
+                            modifier = Modifier,
+                            text = stringResource(R.string.next),
+                            textDecoration = TextDecoration.Underline,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            color = White100,
                         )
                     }
                 }

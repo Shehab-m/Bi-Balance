@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -84,7 +85,7 @@ fun CommunityScreenContent(state: CommunityUIState, listener: CommunityInteracti
                         onClick = listener::onClickSaveWriting
                     ) {
                         Text(
-                            text = "Save notes",
+                            text = stringResource(R.string.save_notes),
                             style = MaterialTheme.typography.bodyMedium,
                             color = White100,
                             modifier = Modifier.padding(8.dp)

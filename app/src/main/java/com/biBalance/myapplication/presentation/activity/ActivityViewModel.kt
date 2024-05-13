@@ -51,7 +51,7 @@ class ActivityViewModel @Inject constructor(
         Log.d("vefvefvefdvevevferve", "success")
 //        activity.description
 //        activity.title
-        when(activityArgs.activityId.toInt()){
+        when (activityArgs.activityId.toInt()) {
             1 -> {
                 updateState {
                     it.copy(
@@ -69,6 +69,7 @@ class ActivityViewModel @Inject constructor(
                     )
                 }
             }
+
             2 -> {
                 updateState {
                     it.copy(
@@ -91,6 +92,7 @@ class ActivityViewModel @Inject constructor(
                     )
                 }
             }
+
             3 -> {
                 updateState {
                     it.copy(
@@ -103,7 +105,8 @@ class ActivityViewModel @Inject constructor(
                     )
                 }
             }
-            else -> {
+
+            4 -> {
                 updateState {
                     it.copy(
                         activityDescription = listOf(
@@ -112,6 +115,97 @@ class ActivityViewModel @Inject constructor(
                             " يمكنك تبادل تجاربك فى الرحله العلاجيه والتشجيع المتبادل بينكم"
                         ),
                         activityTitle = "مجتمعنا",
+                        isLoading = false
+                    )
+                }
+            }
+
+            5 -> {
+                updateState {
+                    it.copy(
+                        activityDescription = listOf(
+                            "يفيد في تعزيز النشاط البدني وتحسين الصحة العقلية من خلال التركيز على التنفس المتحكم فيه والحركة الواعية",
+                            "ابدأ ببضع دقائق من تمارين الإحماء اللطيفة للقلب والأوعية الدموية",
+                            " مثل المشي أو الركض الخفيف، لزيادة معدل ضربات القلب وتدفئة عضلات",
+                            " استلق على ظهرك",
+                            " وارفع رأسك وكتفيك",
+                            " ومد ساقيك",
+                            " وادفع ذراعيك لأعلى ولأسفل بقوة أثناء التنفس بشكل إيقاعي",
+                            " شاهد التمرين من هنا"
+                        ),
+                        activityTitle = "تمرين 100 بيلاتيس",
+                        isLoading = false
+                    )
+                }
+            }
+
+            6 -> {
+                updateState {
+                    it.copy(
+                        activityDescription = listOf(
+                            "توفر البنية والتحفيز والشعور بالهدف",
+                            " مما يساعد على إدارة الأعراض وتحسين احترام الذات وخلق شعور بالإنجاز",
+                            " ومع ذلك من المهم وضع أهداف واقعية وقابلة للتحقيق"
+                        ),
+                        activityTitle = "تحديد الاهداف وتقييمها",
+                        isLoading = false
+                    )
+                }
+            }
+
+            7 -> {
+                updateState {
+                    it.copy(
+                        activityDescription = listOf(
+                            "تعزيز الرعاية الذاتية",
+                            " والحد من الحكم الذاتي",
+                            " وتعزيز المرونة العاطفية",
+                            " مما يدعم في نهاية المطاف الصحة العقلية والرفاهية بشكل عام"
+                        ),
+                        activityTitle = "تحديد أولويات التعاطف مع الذات",
+                        isLoading = false
+                    )
+                }
+            }
+
+            8 -> {
+                updateState {
+                    it.copy(
+                        activityDescription = listOf(
+                            "انضم الى مجتمعنا عبر تطبيق فيس بوك",
+                            " حيث ستجد العديد من لاشخاص الذين يواجهون نفس المشكله هناك",
+                            " يمكنك تبادل تجاربك فى الرحله العلاجيه والتشجيع المتبادل بينكم"
+                        ),
+                        activityTitle = "مجتمعنا",
+                        isLoading = false
+                    )
+                }
+            }
+
+            9 -> {
+                updateState {
+                    it.copy(
+                        activityDescription = listOf(
+                            "هي وضعية يوغا رائعة للابتعاد عن التوتر والقلق، فهي تزيل الإرهاق الجسدي والعقلي",
+                            " استلقي على السجادة على ظهرك و اترك فجوة صغيرة بين الساقين",
+                            "إبقاء كلتا اليدين على الأرض بعيداً قليلاً عن الجسم، مع فتح راحتي اليدين إلى الأعلى وأغمض كلتا عينيك واجعل جسمك في وضع مريح",
+                            "تنفس ببطء وحافظ على انتباهك الكامل للتنفس",
+                            " وقم بالزفير بنفس وتيرة الشهيق ثم البقاء على هذه الوضعية لمدة 10 دقائق على الأقل.شاهد التمرين من هنا"
+                        ),
+                        activityTitle = "تمرين الشافاسنا",
+                        isLoading = false
+                    )
+                }
+            }
+
+            else -> {
+                updateState {
+                    it.copy(
+                        activityDescription = listOf(
+                            "اختر كتابًا يحتوي على رؤى قابلة للتنفيذ",
+                            " قم بتطبيق نصيحة أو استراتيجية واحدة من الكتاب على جهازك"
+                        ),
+                        activityTitle = "رؤى ملهمة",
                         isLoading = false
                     )
                 }
@@ -132,7 +226,7 @@ class ActivityViewModel @Inject constructor(
     }
 
     override fun showActivityContent() {
-        _state.update { it.copy(isActivityContentVisible = true,isStartScreenVisible = false) }
+        _state.update { it.copy(isActivityContentVisible = true, isStartScreenVisible = false) }
     }
 
     override fun onClickNextActivity() {
@@ -145,7 +239,7 @@ class ActivityViewModel @Inject constructor(
 
     override fun onClickNextFinishScreen() {
         viewModelScope.launch {
-            repository.storeResult( activityArgs.activityId.toInt(),1)
+            repository.storeResult(activityArgs.activityId.toInt(), 1)
         }
         sendEffect(ActivityUIEffect.GoToActivitiesScreen)
     }
