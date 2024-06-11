@@ -16,7 +16,6 @@ import com.biBalance.myapplication.data.source.remote.model.UserPost
 import com.biBalance.myapplication.data.source.remote.service.BiBalanceApiService
 import com.biBalance.myapplication.data.source.remote.service.ChatBotApiService
 import retrofit2.Response
-import retrofit2.http.Field
 import javax.inject.Inject
 
 class BiBalanceRepositoryImp @Inject constructor(
@@ -135,13 +134,13 @@ class BiBalanceRepositoryImp @Inject constructor(
     private suspend fun <T> wrap(function: suspend () -> Response<BaseResponse<T>>): BaseResponse<T> {
         try {
             val response = function().body()!!
-            return if (response.success) {
+//            return if (response.success) {
                 Log.d("Tag", "repository done correctly: ${response.data}")
-                response
-            } else {
-                Log.d("Tag", "repository failed :${response.message.errorMessage}")
-                throw Exception("${response.message.errorMessage}")
-            }
+               return response
+//            } else {
+//                Log.d("Tag", "repository failed :${response.message.errorMessage}")
+//                throw Exception("${response.message.errorMessage}")
+//            }
         } catch (e: Exception) {
             Log.e("Tag", "response Error:${e.message}")
             throw Exception("${e.message}")

@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.presentation.community
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
 import com.biBalance.myapplication.data.source.remote.model.UserPost
@@ -62,6 +63,7 @@ class CommunityViewModel @Inject constructor(
 
     private fun getUserPosts() {
         updateState { it.copy(isLoadingPosts = true) }
+        Log.d("vkemviermvermveo", "try to ex")
         tryToExecute(
             { repository.getUserPosts() },
             ::onGetUserPostsSuccess,
@@ -70,12 +72,14 @@ class CommunityViewModel @Inject constructor(
     }
 
     private fun onGetUserPostsSuccess(userPosts: List<UserPost>?) {
+        Log.d("vkemviermvermveo", userPosts.toString())
         updateState {
             it.copy(posts = userPosts ?: emptyList(), isLoadingPosts = false)
         }
     }
 
     private fun onError(error: Exception) {
+        Log.d("vkemviermvermveo", error.message.toString())
         _state.update {
             it.copy(
                 isLoadingPosts = false,
