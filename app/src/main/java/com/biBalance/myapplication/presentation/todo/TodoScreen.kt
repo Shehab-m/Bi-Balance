@@ -1,6 +1,8 @@
 package com.biBalance.myapplication.presentation.todo
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -52,7 +54,9 @@ import com.biBalance.myapplication.ui.theme.Bink100
 import com.biBalance.myapplication.ui.theme.DarkGrey100
 import com.biBalance.myapplication.ui.theme.LightBlue100
 import com.biBalance.myapplication.ui.theme.Purple100
+import com.biBalance.myapplication.util.getCurrentFormattedDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TodoScreen(viewModel: TodoViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
@@ -70,6 +74,7 @@ fun TodoScreen(viewModel: TodoViewModel = hiltViewModel()) {
     TodoContent(state, viewModel)
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnrememberedMutableState")
 @Composable
 fun TodoContent(
@@ -96,7 +101,7 @@ fun TodoContent(
                     }
                     Row(modifier = Modifier.padding(end = 16.dp)) {
                         Text(
-                            text = "2024-3-13",
+                            text = getCurrentFormattedDate(),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(horizontal = 16.dp)
@@ -323,6 +328,7 @@ fun TodoCard(title: String, painter: Painter, color: Color, modifier: Modifier =
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun ProfileScreenPreview() {

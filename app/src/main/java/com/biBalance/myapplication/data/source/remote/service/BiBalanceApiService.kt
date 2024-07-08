@@ -4,10 +4,10 @@ import com.biBalance.myapplication.data.source.remote.model.ActivitiesData
 import com.biBalance.myapplication.data.source.remote.model.Activity
 import com.biBalance.myapplication.data.source.remote.model.BaseResponse
 import com.biBalance.myapplication.data.source.remote.model.Level
-import com.biBalance.myapplication.data.source.remote.model.LevelActivities
+import com.biBalance.myapplication.data.source.remote.model.LevelActivity
 import com.biBalance.myapplication.data.source.remote.model.LoginResponse
-import com.biBalance.myapplication.data.source.remote.model.Notes
-import com.biBalance.myapplication.data.source.remote.model.Tasks
+import com.biBalance.myapplication.data.source.remote.model.Note
+import com.biBalance.myapplication.data.source.remote.model.TaskCreated
 import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.data.source.remote.model.UserPost
 import retrofit2.Response
@@ -36,7 +36,7 @@ interface BiBalanceApiService {
     @GET("showLevelActivities/{id}")
     suspend fun getLevelActivities(
         @Path("id") id: Int
-    ): Response<BaseResponse<LevelActivities>>
+    ): Response<BaseResponse<List<LevelActivity>>>
 
     @GET("showActivity/{id}")
     suspend fun getActivity(
@@ -57,7 +57,7 @@ interface BiBalanceApiService {
     suspend fun getActivitiesScores(): Response<BaseResponse<ActivitiesData>>
 
     @GET("notes")
-    suspend fun getNotes(): Response<BaseResponse<Notes>>
+    suspend fun getNotes(): Response<BaseResponse<List<Note>>>
 
     @FormUrlEncoded
     @POST("notes")
@@ -72,7 +72,7 @@ interface BiBalanceApiService {
     ): Response<BaseResponse<Any>>
 
     @GET("tasks/{date}")
-    suspend fun getTasksForDate(@Path("date") date: String): Response<BaseResponse<Tasks?>>
+    suspend fun getTasksForDate(@Path("date") date: String): Response<BaseResponse<List<TaskCreated>?>>
 
     @FormUrlEncoded
     @POST("changePassword")

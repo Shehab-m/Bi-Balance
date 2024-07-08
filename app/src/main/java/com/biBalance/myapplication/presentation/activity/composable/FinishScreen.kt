@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -82,31 +83,21 @@ fun FinishScreen(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 modifier = Modifier,
-                                text = "Next",
+                                text = stringResource(R.string.next),
                                 textDecoration = TextDecoration.Underline,
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.labelLarge,
                                 color = White100,
                             )
-                            Icon(
-                                painter = painterResource(id = R.drawable.arrow_right),
-                                contentDescription = "icon play",
-                                tint = White100, modifier = Modifier.padding(top = 8.dp)
-                            )
                         }
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrow_right),
+                            contentDescription = "icon play",
+                            tint = White100, modifier = Modifier.padding(top = 8.dp)
+                        )
                     }
                 }
             }
         }
     }
 }
-
-/*
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    StartScreen(Modifier,true,"","",object :ActivityInteractionListener{
-        override fun onClickNext() {}
-        override fun onClickBack() {}
-    })
-}*/

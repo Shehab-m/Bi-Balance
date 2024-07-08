@@ -1,6 +1,6 @@
 package com.biBalance.myapplication.presentation.activites
 
-import com.biBalance.myapplication.data.source.remote.model.LevelActivities
+import com.biBalance.myapplication.data.source.remote.model.LevelActivity
 
 data class ActivitiesUIState(
     val isLoadingUserData: Boolean = true,
@@ -8,7 +8,7 @@ data class ActivitiesUIState(
     val isError: Boolean = false,
     val error: Exception? = null,
     val userName: String = "",
-    val activities: LevelActivities = LevelActivities(emptyList()),
+    val activities: List<LevelActivity> = emptyList(),
     val totalScore: Int = 0,
 ) {
     val isLoading = isLoadingUserData && isLoadingActivities

@@ -1,6 +1,7 @@
 package com.biBalance.myapplication.presentation.activites
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,7 @@ import com.biBalance.myapplication.ui.theme.Beige100
 import com.biBalance.myapplication.ui.theme.LightBlue100
 import com.biBalance.myapplication.ui.theme.LightGreen100
 import com.biBalance.myapplication.ui.theme.LightPurple100
-import com.biBalance.myapplication.util.roundToNearestHalf
+import kotlin.math.roundToInt
 
 @Composable
 fun ActivitiesScreen(viewModel: ActivitiesViewModel = hiltViewModel()) {
@@ -110,20 +111,20 @@ fun ActivitiesScreenContent(state: ActivitiesUIState, listener: ActivitiesIntera
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "${(state.totalScore.toDouble() / 36f).roundToNearestHalf()}%",
+                                    text = "${(state.totalScore.toDouble() / 4f).roundToInt()}%",
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 Text(
-                                    text = "Progress",
+                                    text = stringResource(R.string.progress),
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.primary
                                 )
                             }
                             BiProgressBar(
-                                progressPercentage = state.totalScore/32f,
+                                progressPercentage = state.totalScore/128f,
                                 modifier = Modifier.fillMaxWidth(),
                             )
                             Text(
@@ -144,10 +145,11 @@ fun ActivitiesScreenContent(state: ActivitiesUIState, listener: ActivitiesIntera
                             }
                         }
                     }
-                    itemsIndexed(state.activities.levelActivities) { index, activity ->
+                    itemsIndexed(state.activities) { index, activity ->
                         val colors = listOf(LightGreen100,LightBlue100, Beige100, LightPurple100)
                         val colorIndex = (index % colors.size)
                         val selectedColor = colors[colorIndex]
+                        Log.d("ActivitiesScreenContent: ",activity.id.toString())
                         BiCardActivity(
                             modifier = Modifier.padding(top = 16.dp),
                             title = activity.typeName,

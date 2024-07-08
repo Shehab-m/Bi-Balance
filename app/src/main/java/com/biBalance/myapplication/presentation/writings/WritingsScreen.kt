@@ -115,11 +115,6 @@ fun WritingsContent(
                 }
             },
             content = {
-                val writings = listOf(
-                    "Things I am grateful for",
-                    "Things I want to do in the future",
-                    "notes i am saving for to share with others",
-                )
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxSize()
                         .padding(start = 20.dp, end = 20.dp, top = 38.dp),
@@ -143,8 +138,7 @@ fun WritingsContent(
                                         start = 8.dp,
                                         end = 16.dp,
                                         top = 26.dp
-                                    )
-                                        .align(Alignment.TopStart),
+                                    ).align(Alignment.TopStart),
                                 )
                                 Row(
                                     modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
@@ -152,7 +146,7 @@ fun WritingsContent(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(
-                                        text = note.creationDate,
+                                        text = note.creationDate.substring(0..9),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier

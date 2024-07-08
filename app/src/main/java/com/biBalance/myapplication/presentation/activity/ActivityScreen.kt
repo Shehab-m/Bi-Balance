@@ -23,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
-import com.biBalance.myapplication.presentation.activites.navigateToActivitiesScreenFromActivity
 import com.biBalance.myapplication.presentation.activity.composable.ActivityContent
 import com.biBalance.myapplication.presentation.activity.composable.FinishScreen
 import com.biBalance.myapplication.presentation.activity.composable.StartScreen
@@ -48,7 +47,7 @@ fun ActivityScreen(viewModel: ActivityViewModel = hiltViewModel()) {
             }
 
             ActivityUIEffect.GoToActivitiesScreen -> {
-                navController.navigateToActivitiesScreenFromActivity(state.activityStateId)
+                navController.navigateUp()
             }
         }
     }
@@ -63,7 +62,15 @@ fun ActivityScreenContent(state: ActivityUIState, listener: ActivityInteractionL
         2 -> BlueMedium100
         3 -> Beige100
         4 -> LightPurple100
-        else -> LightPurple100
+        5 -> LightGreen100
+        6 -> BlueMedium100
+        7 -> Beige100
+        8 -> LightPurple100
+        9 -> LightGreen100
+        10 -> BlueMedium100
+        11 -> Beige100
+        12 -> LightPurple100
+        else -> LightGreen100
     }
     val imageId = when (state.activityStateId){
         1 -> R.drawable.character_physical
