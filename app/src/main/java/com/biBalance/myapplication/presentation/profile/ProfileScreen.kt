@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,7 @@ import com.biBalance.myapplication.presentation.profileActivities.navigateToProf
 import com.biBalance.myapplication.presentation.todo.navigateToTodoScreen
 import com.biBalance.myapplication.presentation.writings.navigateToWritingsScreen
 import com.biBalance.myapplication.ui.theme.Bink100
-import com.biBalance.myapplication.util.roundToNearestHalf
+import kotlin.math.roundToInt
 
 @Composable
 fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
@@ -92,7 +93,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
     var showLogoutDialog by remember { mutableStateOf(false) }
     BiAnimatedContentState(state = showLogoutDialog) {
         BiAlertDialog(
-            title = "Are you sure to log out?",
+            title = stringResource(R.string.are_you_sure_to_log_out),
             confirmText = "Yes",
             onDismissButtonClick = { showLogoutDialog = false },
             onConfirmButtonClick = {
@@ -114,7 +115,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                             contentAlignment = Alignment.Center
                         ) {
                             AnimatedProgressBarCircular(
-                                maxProgress = 32,
+                                maxProgress = 128,
                                 currentProgress = state.userData.totalScore,
                                 strokeWidth = 8.dp,
                                 radius = 80.dp
@@ -126,7 +127,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                             )
                         }
                         Text(
-                            text = "You have completed ${(state.userData.totalScore.toDouble() / 36f).roundToNearestHalf()}%",
+                            text = "You have completed ${(state.userData.totalScore.toDouble() / 4f).roundToInt()}%",
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.primary,
@@ -156,7 +157,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                                 tint = MaterialTheme.colorScheme.primary
                             )
                             Text(
-                                text = "Activities",
+                                text = stringResource(R.string.activities),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -171,7 +172,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                                 tint = MaterialTheme.colorScheme.primary
                             )
                             Text(
-                                text = "Todo List",
+                                text = stringResource(R.string.todo_list),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -186,7 +187,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                                 tint = MaterialTheme.colorScheme.primary
                             )
                             Text(
-                                text = "Your Writings",
+                                text = stringResource(R.string.your_writings),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -201,7 +202,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                                 tint = MaterialTheme.colorScheme.primary
                             )
                             Text(
-                                text = "Doctors Articles",
+                                text = stringResource(R.string.doctors_articles),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -216,7 +217,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                                 tint = MaterialTheme.colorScheme.primary
                             )
                             Text(
-                                text = "Password",
+                                text = stringResource(R.string.password_text),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -231,7 +232,7 @@ fun ProfileScreenContent(state: ProfileUIState, listener: ProfileInteractionList
                                 tint = Bink100
                             )
                             Text(
-                                text = "Logout",
+                                text = stringResource(R.string.logout),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = Bink100,
                                 modifier = Modifier.padding(horizontal = 16.dp)

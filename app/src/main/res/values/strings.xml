@@ -20,6 +20,17 @@
     <string name="dont_have_account">don\'t have account?</string>
     <string name="create_account">create account</string>
     <string name="please_fill_required_fields">Please fill required fields</string>
+    <string name="progress">Progress</string>
+    <string name="activities">Activities</string>
+    <string name="todo_list">Todo List</string>
+    <string name="your_writings">Your Writings</string>
+    <string name="doctors_articles">Doctors Articles</string>
+    <string name="password_text">Password</string>
+    <string name="logout">Logout</string>
+    <string name="post">Post</string>
+    <string name="next">Next</string>
+    <string name="are_you_sure_to_log_out">Are you sure to log out?</string>
+    <string name="email">Email</string>
 
 
 </resources>

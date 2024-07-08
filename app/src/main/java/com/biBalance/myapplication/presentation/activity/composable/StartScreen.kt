@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,6 @@ fun StartScreen(
     modifier: Modifier = Modifier,
     state: Boolean,
     title: String,
-//    body: String,
     listener: ActivityInteractionListener
 ) {
     ContentVisibility(
@@ -61,13 +61,6 @@ fun StartScreen(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSecondary,
                 )
-//                Text(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    text = body,
-//                    textAlign = TextAlign.Center,
-//                    style = MaterialTheme.typography.labelMedium,
-//                    color = OffWhite100,
-//                )
                 Image(
                     painter = painterResource(id = R.drawable.character_hi),
                     contentDescription = "hi",
@@ -83,7 +76,7 @@ fun StartScreen(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 modifier = Modifier,
-                                text = "Next",
+                                text = stringResource(R.string.next),
                                 textDecoration = TextDecoration.Underline,
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.labelLarge,
@@ -101,13 +94,3 @@ fun StartScreen(
         }
     }
 }
-
-/*
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    StartScreen(Modifier,true,"","",object :ActivityInteractionListener{
-        override fun onClickNext() {}
-        override fun onClickBack() {}
-    })
-}*/

@@ -13,5 +13,5 @@ data class CommunityUIState(
     val writings: String = "",
     val isWritingScreenVisible: Boolean = false,
 ){
-    val isLoading = isLoadingUserData && isLoadingPosts
+    val isLoading = isLoadingUserData || isLoadingPosts
 }

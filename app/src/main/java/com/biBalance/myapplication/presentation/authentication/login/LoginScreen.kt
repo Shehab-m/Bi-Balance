@@ -122,7 +122,7 @@ fun LoginContent(
                            modifier = Modifier.padding(end = 8.dp)
                        )
                        Text(
-                           text = stringResource(R.string.User_name),
+                           text = stringResource(R.string.email),
                            style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.primary),
                            textAlign = TextAlign.Center,
                        )
@@ -205,22 +205,6 @@ fun LoginContent(
                            )
                        }
                    }
-//                   Row(verticalAlignment = Alignment.CenterVertically) {
-//                       Text(
-//                           text = stringResource(R.string.dont_have_account),
-//                           style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.primary),
-//                           textAlign = TextAlign.Center,
-//                       )
-//                       Text(
-//                           text = stringResource(R.string.create_account),
-//                           style = MaterialTheme.typography.bodyMedium.copy(
-//                               color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.W700
-//                           ),
-//                           textDecoration = TextDecoration.Underline,
-//                           textAlign = TextAlign.Center,
-//                           modifier = Modifier.clickable { listener.onClickSignup() }
-//                       )
-//                   }
                }
            }
        },

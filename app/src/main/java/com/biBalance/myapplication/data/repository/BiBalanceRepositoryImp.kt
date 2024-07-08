@@ -1,5 +1,6 @@
 package com.biBalance.myapplication.data.repository
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.biBalance.myapplication.data.source.local.AuthPreferences
 import com.biBalance.myapplication.data.source.remote.model.ActivitiesScores
@@ -8,15 +9,14 @@ import com.biBalance.myapplication.data.source.remote.model.BaseResponse
 import com.biBalance.myapplication.data.source.remote.model.ChatBotResponse
 import com.biBalance.myapplication.data.source.remote.model.ChatRequest
 import com.biBalance.myapplication.data.source.remote.model.Level
-import com.biBalance.myapplication.data.source.remote.model.LevelActivities
+import com.biBalance.myapplication.data.source.remote.model.LevelActivity
 import com.biBalance.myapplication.data.source.remote.model.Note
-import com.biBalance.myapplication.data.source.remote.model.Tasks
+import com.biBalance.myapplication.data.source.remote.model.TaskCreated
 import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.data.source.remote.model.UserPost
 import com.biBalance.myapplication.data.source.remote.service.BiBalanceApiService
 import com.biBalance.myapplication.data.source.remote.service.ChatBotApiService
 import retrofit2.Response
-import retrofit2.http.Field
 import javax.inject.Inject
 
 class BiBalanceRepositoryImp @Inject constructor(
@@ -51,7 +51,7 @@ class BiBalanceRepositoryImp @Inject constructor(
         return wrap { biBalanceService.getHomeLevels() }.data
     }
 
-    override suspend fun getLevelActivities(id: Int): LevelActivities {
+    override suspend fun getLevelActivities(id: Int): List<LevelActivity> {
         return wrap { biBalanceService.getLevelActivities(id) }.data
     }
 
@@ -76,7 +76,7 @@ class BiBalanceRepositoryImp @Inject constructor(
     }
 
     override suspend fun getNotes(): List<Note> {
-        return wrap { biBalanceService.getNotes() }.data.notes
+        return wrap { biBalanceService.getNotes() }.data
     }
 
     override suspend fun saveNotes(notes: String) {
@@ -112,7 +112,7 @@ class BiBalanceRepositoryImp @Inject constructor(
     }
 
 
-    override suspend fun getTasksForDate(date: String): Tasks? {
+    override suspend fun getTasksForDate(date: String): List<TaskCreated>? {
         return wrap { biBalanceService.getTasksForDate(date) }.data
     }
 
@@ -132,16 +132,17 @@ class BiBalanceRepositoryImp @Inject constructor(
         return datastore.clearToken()
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private suspend fun <T> wrap(function: suspend () -> Response<BaseResponse<T>>): BaseResponse<T> {
         try {
             val response = function().body()!!
-            return if (response.success) {
+//            return if (response.success) {
                 Log.d("Tag", "repository done correctly: ${response.data}")
-                response
-            } else {
-                Log.d("Tag", "repository failed :${response.message.errorMessage}")
-                throw Exception("${response.message.errorMessage}")
-            }
+               return response
+//            } else {
+//                Log.d("Tag", "repository failed :${response.message.errorMessage}")
+//                throw Exception("${response.message.errorMessage}")
+//            }
         } catch (e: Exception) {
             Log.e("Tag", "response Error:${e.message}")
             throw Exception("${e.message}")

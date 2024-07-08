@@ -37,10 +37,6 @@ class AuthInterceptor @Inject constructor(
         private const val API_KEY_VALUE = "application/json"
         private const val AUTHORIZATION = "Authorization"
         const val BASE_URL = "http://10.0.2.2:8000/api/"
-        const val CHAT_BASE_URL = "http://192.168.1.2:5000/api/"
-//        const val BASE_URL = "http://127.0.0.1:8000/api/"
-//        const val BASE_URL = "http://127.0.0.1:8000/"
-//const val BASE_URL = "https://10.0.2.2:8000/api/"
-
+        const val CHAT_BASE_URL = "http://192.168.1.6:5000/api/"
     }
 }

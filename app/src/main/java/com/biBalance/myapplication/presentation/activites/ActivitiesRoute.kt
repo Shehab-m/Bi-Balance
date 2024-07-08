@@ -1,6 +1,5 @@
 package com.biBalance.myapplication.presentation.activites
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -25,18 +24,18 @@ fun NavController.navigateToActivitiesScreen(activitiesId:Int) {
 //
 //    Log.d("navigateToActivitiesScreenFromActivity: ","runnnnnnnnnnnnn")
 //}
-fun NavController.navigateToActivitiesScreenFromActivity(activitiesId: Int) {
-    val routeWithId = "$ROUTE/$activitiesId"
-
-    navigate(routeWithId) {
-        launchSingleTop = true
-        popUpTo(ROUTE) {
-            inclusive = true
-        }
-    }
-
-    Log.d("navigateToActivitiesScreenFromActivity: ","runnnnnnnnnnnnn")
-}
+//fun NavController.navigateToActivitiesScreenFromActivity(activitiesId: Int) {
+//    val routeWithId = "$ROUTE/$activitiesId"
+//
+//    navigate(routeWithId) {
+//        launchSingleTop = true
+//        popUpTo(ROUTE) {
+//            inclusive = true
+//        }
+//    }
+//
+//    Log.d("navigateToActivitiesScreenFromActivity: ","runnnnnnnnnnnnn")
+//}
 fun NavGraphBuilder.activitiesRoute() {
     composable(
         route = "$ROUTE/{${ActivitiesArgs.ACTIVITIES_ID}}",

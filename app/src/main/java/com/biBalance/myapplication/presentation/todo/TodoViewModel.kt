@@ -4,7 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
-import com.biBalance.myapplication.data.source.remote.model.Tasks
+import com.biBalance.myapplication.data.source.remote.model.TaskCreated
 import com.biBalance.myapplication.presentation.base.BaseViewModel
 import com.biBalance.myapplication.util.getCurrentFormattedDate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -65,13 +65,13 @@ class TodoViewModel @Inject constructor(
         )
     }
 
-    private fun onGetTasksForDateSuccess(tasks: Tasks?) {
+    private fun onGetTasksForDateSuccess(tasks: List<TaskCreated>?) {
         updateState {
             it.copy(
-                goalState = tasks?.tasks?.get(0)?.task1 ?: "",
-                medsState = tasks?.tasks?.get(0)?.task2 ?: "",
-                activityState = tasks?.tasks?.get(0)?.task3 ?: "",
-                eventState = tasks?.tasks?.get(0)?.task4 ?: "",
+                goalState = tasks?.get(0)?.task1 ?: "",
+                medsState = tasks?.get(0)?.task2 ?: "",
+                activityState = tasks?.get(0)?.task3 ?: "",
+                eventState = tasks?.get(0)?.task4 ?: "",
                 isLoading = false
             )
         }

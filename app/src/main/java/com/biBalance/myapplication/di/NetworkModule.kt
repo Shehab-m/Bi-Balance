@@ -19,20 +19,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-//    @Singleton
-//    @Provides
-//    fun provideRetrofitService(retrofit: Retrofit): BiBalanceApiService {
-//        return retrofit.create(BiBalanceApiService::class.java)
-//    }
-
-//    @Singleton
-//    @Provides
-//    fun provideRetrofitChatBotService(
-//        retrofit: Retrofit
-//    ): ChatBotApiService {
-//        return retrofit.create(ChatBotApiService::class.java)
-//    }
-
     @Singleton
     @Provides
     fun provideMainRetrofitService(

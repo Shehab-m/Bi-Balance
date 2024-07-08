@@ -69,6 +69,10 @@ class WritingsViewModel @Inject constructor(
 
     override fun onClickSaveWriting() {
         _state.update { it.copy(isWritingScreenVisible = false) }
-        getNotes()
+        tryToExecute(
+            { repository.saveNotes(_state.value.writings) },
+            { getNotes() },
+            ::onError
+        )
     }
 }

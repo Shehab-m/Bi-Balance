@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.biBalance.myapplication.R
-import com.biBalance.myapplication.data.source.remote.model.LevelActivities
+import com.biBalance.myapplication.data.source.remote.model.LevelActivity
 import com.biBalance.myapplication.presentation.composables.BiAnimationContent
 import com.biBalance.myapplication.presentation.composables.BiCardActivity
 import com.biBalance.myapplication.presentation.composables.Loading
@@ -111,10 +111,10 @@ fun ProfileActivitiesContent(
                     )
                 }
                 val activities = listOf(
-                    LevelActivities.LevelActivity(1, "${state.scores.physicalScore} Physical"),
-                    LevelActivities.LevelActivity(2, "${state.scores.mentalScore} Mental"),
-                    LevelActivities.LevelActivity(3, "${state.scores.emotionalScore} Emotional"),
-                    LevelActivities.LevelActivity(4, "${state.scores.socialScore} Social"),
+                    LevelActivity(1, "${state.scores.physicalScore} Physical"),
+                    LevelActivity(2, "${state.scores.mentalScore} Mental"),
+                    LevelActivity(3, "${state.scores.emotionalScore} Emotional"),
+                    LevelActivity(4, "${state.scores.socialScore} Social"),
                 )
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxSize()
