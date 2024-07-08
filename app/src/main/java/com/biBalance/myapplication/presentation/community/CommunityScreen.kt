@@ -1,6 +1,7 @@
 package com.biBalance.myapplication.presentation.community
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
@@ -29,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,12 +59,17 @@ import com.biBalance.myapplication.ui.theme.White100
 @Composable
 fun CommunityScreen(viewModel: CommunityViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
     EventHandler(viewModel.effect) { effect, navController ->
         when (effect) {
             is CommunityUIEffect.OnClickLevel -> {
                 navController.navigateToActivitiesScreen(effect.id)
             }
         }
+    }
+    LaunchedEffect(lifecycleOwner) {
+        viewModel.getUserData()
+        viewModel.getUserPosts()
     }
     CommunityScreenContent(state, viewModel)
 }
@@ -85,7 +93,7 @@ fun CommunityScreenContent(state: CommunityUIState, listener: CommunityInteracti
                         onClick = listener::onClickSaveWriting
                     ) {
                         Text(
-                            text = stringResource(R.string.save_notes),
+                            text = stringResource(R.string.post),
                             style = MaterialTheme.typography.bodyMedium,
                             color = White100,
                             modifier = Modifier.padding(8.dp)
@@ -129,13 +137,8 @@ fun CommunityScreenContent(state: CommunityUIState, listener: CommunityInteracti
                             }
                         }
                     }
-//                    val posts = listOf(
-//                        Post(1, "Dr/Osama", "this is a post by doctor osama", 53),
-//                        Post(2, "Dr/Sara", "this is a post by doctor Sara", 32),
-//                        Post(3, "Dr/Shady", "this is a post by doctor Shady", 12),
-//                        Post(4, "Dr/Ali", "this is a post by doctor Ali", 2),
-//                    )
                     items(state.posts) { post ->
+                        Log.d( "CommunityScreenContent: ",post.toString())
                         val postLikes = remember { mutableStateOf(post.likesCount) }
                         val isPostLiked = remember { mutableStateOf(false) }
                         Card(

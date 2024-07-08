@@ -80,11 +80,6 @@ fun FinishScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     TextButton(onClick = { listener.onClickNextFinishScreen() }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrow_right),
-                            contentDescription = "icon play",
-                            tint = White100, modifier = Modifier.padding(top = 8.dp)
-                        )
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 modifier = Modifier,
@@ -95,19 +90,14 @@ fun FinishScreen(
                                 color = White100,
                             )
                         }
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrow_right),
+                            contentDescription = "icon play",
+                            tint = White100, modifier = Modifier.padding(top = 8.dp)
+                        )
                     }
                 }
             }
         }
     }
 }
-
-/*
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    StartScreen(Modifier,true,"","",object :ActivityInteractionListener{
-        override fun onClickNext() {}
-        override fun onClickBack() {}
-    })
-}*/

@@ -27,8 +27,9 @@
     <string name="logout">تسجيل الخروج</string>
     <string name="doctors_articles">المجتمع الطبي</string>
     <string name="your_writings">كتاباتك</string>
-    <string name="save_notes">حفظ</string>
+    <string name="post">حفظ</string>
     <string name="next">التالي</string>
     <string name="are_you_sure_to_log_out">هل تريد تسجيل الخروج؟</string>
+    <string name="email">البريد الالكتروني</string>
 
 </resources>

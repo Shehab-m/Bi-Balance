@@ -59,11 +59,6 @@ fun ActivityContent(
             ) {
                 TextButton(onClick = onClickNext) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrow_right),
-                            contentDescription = "icon play",
-                            tint = White100, modifier = Modifier.padding(top = 8.dp)
-                        )
                         Text(
                             modifier = Modifier,
                             text = stringResource(R.string.next),
@@ -71,6 +66,11 @@ fun ActivityContent(
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelLarge,
                             color = White100,
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrow_right),
+                            contentDescription = "icon play",
+                            tint = White100, modifier = Modifier.padding(top = 8.dp)
                         )
                     }
                 }

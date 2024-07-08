@@ -3,6 +3,7 @@ package com.biBalance.myapplication.presentation.community
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
+import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.data.source.remote.model.UserPost
 import com.biBalance.myapplication.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,21 @@ class CommunityViewModel @Inject constructor(
 
     init {
         getUserPosts()
+        getUserData()
+    }
+
+    override fun getUserData(){
+        tryToExecute(
+            {repository.getUserData()},
+            ::onGetUserDataSuccess,
+            ::onError
+        )
+    }
+
+    private fun onGetUserDataSuccess(userData: UserData) {
+        updateState {
+            it.copy(userName = userData.username, totalScore = userData.totalScore ,isLoadingUserData = false)
+        }
     }
 
     override fun onClickAddWriting() {
@@ -61,8 +77,8 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
-    private fun getUserPosts() {
-        updateState { it.copy(isLoadingPosts = true) }
+    fun getUserPosts() {
+        updateState { it.copy(isLoadingPosts = true, posts = emptyList()) }
         Log.d("vkemviermvermveo", "try to ex")
         tryToExecute(
             { repository.getUserPosts() },

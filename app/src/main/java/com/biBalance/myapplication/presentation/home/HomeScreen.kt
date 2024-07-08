@@ -155,9 +155,8 @@ fun HomeScreenContent(state: HomeUIState, listener: HomeInteractionListener) {
                             title = level.name,
                             backgroundColor = selectedColor,
                             onClick = { listener.onClickLevel(level.id) },
-                            isActive = if(state.totalScore >= 3 && level.id == 2) true else level.status[0].unlocked,
-                            score = if(level.id == 2) 0 else  level.status[0].score,
-
+                            isActive = level.status[0].unlocked,
+                            score = level.status[0].score,
                         )
                     }
                 }

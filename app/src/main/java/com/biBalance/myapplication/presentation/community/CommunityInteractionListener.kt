@@ -8,4 +8,5 @@ interface CommunityInteractionListener: BaseInteractionListener {
     fun onClickBackFromWriting()
     fun onWritingsInputChange(text: String)
     fun onClickSaveWriting()
+    fun getUserData()
 }

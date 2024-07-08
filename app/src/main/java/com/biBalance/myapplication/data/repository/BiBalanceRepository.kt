@@ -4,9 +4,9 @@ import com.biBalance.myapplication.data.source.remote.model.ActivitiesScores
 import com.biBalance.myapplication.data.source.remote.model.Activity
 import com.biBalance.myapplication.data.source.remote.model.ChatBotResponse
 import com.biBalance.myapplication.data.source.remote.model.Level
-import com.biBalance.myapplication.data.source.remote.model.LevelActivities
+import com.biBalance.myapplication.data.source.remote.model.LevelActivity
 import com.biBalance.myapplication.data.source.remote.model.Note
-import com.biBalance.myapplication.data.source.remote.model.Tasks
+import com.biBalance.myapplication.data.source.remote.model.TaskCreated
 import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.data.source.remote.model.UserPost
 
@@ -18,7 +18,7 @@ interface BiBalanceRepository {
     suspend fun clearToken()
     suspend fun getHomeLevels(): List<Level>
     suspend fun getUserData(): UserData
-    suspend fun getLevelActivities(id: Int): LevelActivities
+    suspend fun getLevelActivities(id: Int): List<LevelActivity>
     suspend fun getActivity(id: Int): Activity
     suspend fun getActivit(id: Int): String
     suspend fun getActivitiesScores(): ActivitiesScores
@@ -34,7 +34,7 @@ interface BiBalanceRepository {
         taskThree: String,
         taskFour: String
     )
-    suspend fun getTasksForDate(date: String): Tasks?
+    suspend fun getTasksForDate(date: String): List<TaskCreated>?
     suspend fun getUserPosts(): List<UserPost>?
     suspend fun likeUserPost(id: Int)
     suspend fun unlikeUserPost(id: Int)

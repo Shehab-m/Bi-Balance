@@ -34,7 +34,6 @@ fun StartScreen(
     modifier: Modifier = Modifier,
     state: Boolean,
     title: String,
-//    body: String,
     listener: ActivityInteractionListener
 ) {
     ContentVisibility(
@@ -62,13 +61,6 @@ fun StartScreen(
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSecondary,
                 )
-//                Text(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    text = body,
-//                    textAlign = TextAlign.Center,
-//                    style = MaterialTheme.typography.labelMedium,
-//                    color = OffWhite100,
-//                )
                 Image(
                     painter = painterResource(id = R.drawable.character_hi),
                     contentDescription = "hi",
@@ -82,11 +74,6 @@ fun StartScreen(
                 ) {
                     TextButton(onClick = { listener.showActivityContent() }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.arrow_right),
-                                contentDescription = "icon play",
-                                tint = White100, modifier = Modifier.padding(top = 8.dp)
-                            )
                             Text(
                                 modifier = Modifier,
                                 text = stringResource(R.string.next),
@@ -95,6 +82,11 @@ fun StartScreen(
                                 style = MaterialTheme.typography.labelLarge,
                                 color = White100,
                             )
+                            Icon(
+                                painter = painterResource(id = R.drawable.arrow_right),
+                                contentDescription = "icon play",
+                                tint = White100, modifier = Modifier.padding(top = 8.dp)
+                            )
                         }
                     }
                 }
@@ -102,13 +94,3 @@ fun StartScreen(
         }
     }
 }
-
-/*
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    StartScreen(Modifier,true,"","",object :ActivityInteractionListener{
-        override fun onClickNext() {}
-        override fun onClickBack() {}
-    })
-}*/

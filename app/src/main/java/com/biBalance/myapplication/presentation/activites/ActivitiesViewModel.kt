@@ -1,8 +1,9 @@
 package com.biBalance.myapplication.presentation.activites
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.biBalance.myapplication.data.repository.BiBalanceRepository
-import com.biBalance.myapplication.data.source.remote.model.LevelActivities
+import com.biBalance.myapplication.data.source.remote.model.LevelActivity
 import com.biBalance.myapplication.data.source.remote.model.UserData
 import com.biBalance.myapplication.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,6 +51,7 @@ class ActivitiesViewModel @Inject constructor(
     }
 
     private fun getLevelActivities() {
+        Log.d( "getLevelActivities: ",activitiesArgs.activitiesId.toString())
         tryToExecute(
             { repository.getLevelActivities(activitiesArgs.activitiesId.toInt()) },
             ::onGetLevelActivitiesSuccess,
@@ -57,7 +59,7 @@ class ActivitiesViewModel @Inject constructor(
         )
     }
 
-    private fun onGetLevelActivitiesSuccess(activities: LevelActivities) {
+    private fun onGetLevelActivitiesSuccess(activities: List<LevelActivity>) {
         updateState { it.copy(activities = activities, isLoadingActivities = false) }
     }
 

@@ -10,7 +10,3 @@ data class TaskCreated(
     @SerializedName("task4") val task4: String,
     @SerializedName("created_at") val creationDate: String,
 )
-
-data class Tasks (
-    @SerializedName("tasks") val tasks: List<TaskCreated>
-)

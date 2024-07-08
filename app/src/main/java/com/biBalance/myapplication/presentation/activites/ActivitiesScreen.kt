@@ -1,6 +1,7 @@
 package com.biBalance.myapplication.presentation.activites
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -144,10 +145,11 @@ fun ActivitiesScreenContent(state: ActivitiesUIState, listener: ActivitiesIntera
                             }
                         }
                     }
-                    itemsIndexed(state.activities.levelActivities) { index, activity ->
+                    itemsIndexed(state.activities) { index, activity ->
                         val colors = listOf(LightGreen100,LightBlue100, Beige100, LightPurple100)
                         val colorIndex = (index % colors.size)
                         val selectedColor = colors[colorIndex]
+                        Log.d("ActivitiesScreenContent: ",activity.id.toString())
                         BiCardActivity(
                             modifier = Modifier.padding(top = 16.dp),
                             title = activity.typeName,
