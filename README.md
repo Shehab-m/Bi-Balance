@@ -1,6 +1,5 @@
 # Bipolar Disorder Management App
 
-Overview
 The app is 
 This Android app is designed to assist bipolar disorder patients in managing their mental health effectively. It includes features for tracking progress, engaging with a supportive community, accessing doctor’s articles, and using a chatbot for instant support.
 
