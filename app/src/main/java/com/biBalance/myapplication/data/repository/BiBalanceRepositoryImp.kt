@@ -120,7 +120,7 @@ class BiBalanceRepositoryImp @Inject constructor(
         return chatBotService.sendChat(ChatRequest(chat)).body()!!
     }
 
-    override suspend fun getArticlePosts(): List<UserPost>? {
+    override suspend fun getUserPosts(): List<UserPost>? {
         return wrap { biBalanceService.getUserPosts() }.data
     }
 
@@ -134,18 +134,20 @@ class BiBalanceRepositoryImp @Inject constructor(
 
     @SuppressLint("SuspiciousIndentation")
     private suspend fun <T> wrap(function: suspend () -> Response<BaseResponse<T>>): BaseResponse<T> {
-        try {
-            val response = function().body()!!
-//            return if (response.success) {
+        return try {
+            val response = function().body()
+            if (response != null && response.success) {
                 Log.d("Tag", "repository done correctly: ${response.data}")
-               return response
-//            } else {
-//                Log.d("Tag", "repository failed :${response.message.errorMessage}")
-//                throw Exception("${response.message.errorMessage}")
-//            }
+                response
+            } else {
+                val message = response?.message?.errorMessage ?: "Response is null or not success"
+                Log.d("Tag", "repository failed :$message")
+                throw Exception(message)
+            }
         } catch (e: Exception) {
             Log.e("Tag", "response Error:${e.message}")
             throw Exception("${e.message}")
         }
     }
+
 }
